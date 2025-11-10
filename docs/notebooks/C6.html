@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Capítulo 6: Diagnóstico de supuestos &#8212; Ames Housing Notebooks</title>
+    <title>Capítulo 6: Diagnóstico de supuestos &#8212; Ames Housing: Regresión lineal, inferencia, diagnóstico y métodos robustos</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -57,7 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "all"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/C6';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -151,7 +151,7 @@
   
   
   
-    <p class="title logo__title">Ames Housing Notebooks</p>
+    <p class="title logo__title">Ames Housing: Regresión lineal, inferencia, diagnóstico y métodos robustos</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -167,14 +167,6 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="../index.html">
-                    Ames Housing — Notebooks
-                </a>
-            </li>
-        </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="C2.html">Capítulo 2: Descripción y limpieza del dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="C3.html">Capítulo 3: Análisis exploratorio (EDA)</a></li>
@@ -349,7 +341,7 @@ document.write(`
 <h1>Capítulo 6: Diagnóstico de supuestos<a class="headerlink" href="#capitulo-6-diagnostico-de-supuestos" title="Link to this heading">#</a></h1>
 <section id="linealidad-y-normalidad">
 <h2>6.1 Linealidad y normalidad<a class="headerlink" href="#linealidad-y-normalidad" title="Link to this heading">#</a></h2>
-<p>El supuesto de <strong>linealidad</strong> indica que la relación entre las variables predictoras y la respuesta es aproximadamente lineal. Representado en la ecuación de regresión lineal (<a class="reference internal" href="#ecuacion-411-regresion-lineal"><span class="xref myst">Ecuación 4.1.1</span></a>), se evalúa con un gráfico de residuales vs valores ajustados; una dispersión aleatoria alrededor de cero sin patrones sugiere que se cumple, desviaciones sugieren una relación no lineal o la necesidad de alguna transformación.</p>
+<p>El supuesto de <strong>linealidad</strong> indica que la relación entre las variables predictoras y la respuesta es aproximadamente lineal. Representado en la ecuación de regresión lineal (:ref:<code class="docutils literal notranslate"><span class="pre">**Ecuación</span> <span class="pre">4.1.1.**</span> <span class="pre">Regresión</span> <span class="pre">lineal</span> <span class="pre">&lt;ecuacion-411-regresion-lineal&gt;</span></code>), se evalúa con un gráfico de residuales vs valores ajustados; una dispersión aleatoria alrededor de cero sin patrones sugiere que se cumple, desviaciones sugieren una relación no lineal o la necesidad de alguna transformación.</p>
 <p>La <strong>normalidad de los residuos</strong> implica que <span class="math notranslate nohighlight">\(\varepsilon \sim N(0, \sigma^2)\)</span>.
 <strong>Ecuación 6.1.1.</strong> Normalidad de los residuos.</p>
 <p>Se verifica con un QQ-plot, comparando los residuos con los cuantiles teóricos de una normal. Si los puntos siguen la línea, el supuesto se cumple; desviaciones pueden afectar la validez de intervalos y pruebas de hipótesis.</p>
@@ -414,7 +406,8 @@ document.write(`
 \[
 \text{Var}(\varepsilon_i) = \sigma^2, \quad \forall i
 \]</div>
-<p><strong>Ecuación 6.2.1.</strong> Varianza de errores.<a id="ecuacion-621-varianza-errores"></a></p>
+<p><strong>Ecuación 6.2.1.</strong> Varianza de los errores.
+{#ecuacion-621-varianza-errores}</p>
 <p>La <strong>autocorrelación</strong> implica que los errores de observaciones consecutivas no deben estar correlacionados. Se interpreta a menudo con la estadística de Durbin–Watson, donde valores cercanos a 2 indican ausencia de autocorrelación. La presencia de autocorrelación puede inflar la significancia aparente de los coeficientes y afectar la precisión de las predicciones. Formalmente:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -603,7 +596,7 @@ r_{jk} = \frac{\text{Cov}(X_j, X_k)}{\sigma_{X_j} \, \sigma_{X_k}}
   <div class="footer-item">
     
 <p class="component-author">
-By Daniel Carbonó, Gloria Bastidas, Luis Pérez
+By Daniel Carbono - Gloria Bastidas - Luis Perez
 </p>
 
   </div>

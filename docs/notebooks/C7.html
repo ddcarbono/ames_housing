@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Capítulo 7: Remedios y métodos robustos &#8212; Ames Housing Notebooks</title>
+    <title>Capítulo 7: Remedios y métodos robustos &#8212; Ames Housing: Regresión lineal, inferencia, diagnóstico y métodos robustos</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -57,7 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "all"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/C7';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -151,7 +151,7 @@
   
   
   
-    <p class="title logo__title">Ames Housing Notebooks</p>
+    <p class="title logo__title">Ames Housing: Regresión lineal, inferencia, diagnóstico y métodos robustos</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -167,14 +167,6 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="../index.html">
-                    Ames Housing — Notebooks
-                </a>
-            </li>
-        </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="C2.html">Capítulo 2: Descripción y limpieza del dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="C3.html">Capítulo 3: Análisis exploratorio (EDA)</a></li>
@@ -351,7 +343,7 @@ document.write(`
 <h1>Capítulo 7: Remedios y métodos robustos<a class="headerlink" href="#capitulo-7-remedios-y-metodos-robustos" title="Link to this heading">#</a></h1>
 <section id="correcciones-para-heterocedasticidad">
 <h2>7.1 Correcciones para heterocedasticidad<a class="headerlink" href="#correcciones-para-heterocedasticidad" title="Link to this heading">#</a></h2>
-<p>De acuerdo con el supuesto de homocedasticidad (<a class="reference internal" href="#ecuacion-621-varianza-errores"><span class="xref myst">Ecuación 6.2.1</span></a>), la presencia de heterocedasticidad puede provocar que los errores estándar de los coeficientes estén subestimados, afectando los valores <span class="math notranslate nohighlight">\(t\)</span> y las decisiones de significancia. Para corregir este problema, se utilizan los estimadores de varianza robusta <strong>HC</strong> (Heteroscedasticity-Consistent), que ajustan los errores estándar sin cambiar los coeficientes estimados.</p>
+<p>De acuerdo con el supuesto de homocedasticidad ((:ref:<code class="docutils literal notranslate"><span class="pre">**Ecuación</span> <span class="pre">6.2.1.**</span> <span class="pre">Varianza</span> <span class="pre">errores</span> <span class="pre">&lt;ecuacion-621-varianza-errores&gt;</span></code>)), la presencia de heterocedasticidad puede provocar que los errores estándar de los coeficientes estén subestimados, afectando los valores <span class="math notranslate nohighlight">\(t\)</span> y las decisiones de significancia. Para corregir este problema, se utilizan los estimadores de varianza robusta <strong>HC</strong> (Heteroscedasticity-Consistent), que ajustan los errores estándar sin cambiar los coeficientes estimados.</p>
 <ul class="simple">
 <li><p><strong>HC0</strong>: Estimador original de White, básico y consistente frente a heterocedasticidad.</p></li>
 <li><p><strong>HC1</strong>: Ajusta HC0 por los grados de libertad, corrigiendo ligeras subestimaciones.</p></li>
@@ -1207,7 +1199,8 @@ document.write(`
 </table>
 </div></div></div>
 </div>
-<p><strong>Tabla 7.4.1.</strong> Coeficientes OLS vs. Bootstrap. <em>Valores en escala logarítmica.</em></p>
+<p><strong>Tabla 7.4.1.</strong> Coeficientes OLS vs. Bootstrap (escala logarítmica).
+{#ecuacion-223-transformacion-log}</p>
 <p>Se observa que la estimación de los parámetros es muy estable frente al remuestreo, lo que sugiere que la muestra utilizada es suficientemente representativa y que los coeficientes no dependen excesivamente de observaciones individuales.</p>
 <p>En particular, las variables como <code class="docutils literal notranslate"><span class="pre">Overall</span> <span class="pre">Qual</span></code>, <code class="docutils literal notranslate"><span class="pre">Gr</span> <span class="pre">Liv</span> <span class="pre">Area</span></code> y <code class="docutils literal notranslate"><span class="pre">Fireplaces</span></code> muestran coeficientes positivos consistentes en ambos métodos, confirmando su relación directa con el precio de la vivienda. Por su parte, <code class="docutils literal notranslate"><span class="pre">Full</span> <span class="pre">Bath</span></code> mantiene un coeficiente ligeramente negativo, indicando que, controlando por las demás variables, su efecto es mínimo.</p>
 <div class="cell docutils container">
@@ -1405,7 +1398,7 @@ document.write(`
 </div></div></div>
 </div>
 <p><strong>Tabla 7.4.3.</strong> Amplitud intervalos de confianza OLS vs. HC3 vs. Bootstrap.</p>
-<p>Alineados con los errores estándar (<a class="reference internal" href="#tabla-742-se-ols-hc3-boot"><span class="xref myst">Tabla 7.4.2</span></a>), los intervalos calculados con OLS son consistentemente más estrechos que los obtenidos con HC3 o bootstrap, llegando a la misma conclusión de que el OLS inicial es menos robusto.</p>
+<p>Alineados con los errores estándar ((:ref:<code class="docutils literal notranslate"><span class="pre">**Tabla</span> <span class="pre">7.4.2.**</span> <span class="pre">Errores</span> <span class="pre">estándar</span> <span class="pre">OLS</span> <span class="pre">vs.</span> <span class="pre">HC3</span> <span class="pre">vs.</span> <span class="pre">Bootstrap</span> <span class="pre">(escala</span> <span class="pre">logarítmica)</span> <span class="pre">&lt;tabla-742-se-ols-hc3-boot&gt;</span></code>)), los intervalos calculados con OLS son consistentemente más estrechos que los obtenidos con HC3 o bootstrap, llegando a la misma conclusión de que el OLS inicial es menos robusto.</p>
 </section>
 </section>
 
@@ -1491,7 +1484,7 @@ document.write(`
   <div class="footer-item">
     
 <p class="component-author">
-By Daniel Carbonó, Gloria Bastidas, Luis Pérez
+By Daniel Carbono - Gloria Bastidas - Luis Perez
 </p>
 
   </div>
