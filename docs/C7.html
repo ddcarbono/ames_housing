@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>C4</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>C7</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7517,87 +7517,540 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Cap%C3%ADtulo-4:-Formulaci%C3%B3n-matricial-del-modelo-OLS">Capítulo 4: Formulación matricial del modelo OLS<a class="anchor-link" href="#Cap%C3%ADtulo-4:-Formulaci%C3%B3n-matricial-del-modelo-OLS">¶</a></h1>
+<h1 id="Cap%C3%ADtulo-7:-Remedios-y-m%C3%A9todos-robustos">Capítulo 7: Remedios y métodos robustos<a class="anchor-link" href="#Cap%C3%ADtulo-7:-Remedios-y-m%C3%A9todos-robustos">¶</a></h1>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=491887f7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=64e95aac">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="4.1-Definici%C3%B3n-del-modelo">4.1 Definición del modelo<a class="anchor-link" href="#4.1-Definici%C3%B3n-del-modelo">¶</a></h3>
+<h3 id="7.1-Correcciones-para-heterocedasticidad">7.1 Correcciones para heterocedasticidad<a class="anchor-link" href="#7.1-Correcciones-para-heterocedasticidad">¶</a></h3>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f1a6e6f1">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1f80dee9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>El modelo de regresión lineal puede expresarse de forma matricial como:</p>
-<p>$$
-Y = X\beta + \varepsilon
-$$</p>
-<p><strong>Ecuación 4.1.1.</strong> Regresión lineal.<a id="ecuacion-411-regresion-lineal"></a></p>
-<p>La función de pérdida de mínimos cuadrados busca minimizar la suma de los errores al cuadrado:</p>
-<p>$$
-S(\beta) = (Y - X\beta)^\top (Y - X\beta)
-$$</p>
-<p><strong>Ecuación 4.1.2.</strong> Función de pérdida mínimos cuadrados.</p>
-<p>Donde los estimadores están dados por:</p>
-<p>$$
-\hat{\beta} = (X^\top X)^{-1}X^\top Y
-$$</p>
-<p><strong>Ecuación 4.1.3.</strong> Estimadores de mínimos cuadrados.</p>
+<p>De acuerdo con el supuesto de homocedasticidad (<a href="#ecuacion-621-varianza-errores">Ecuación 6.2.1</a>), la presencia de heterocedasticidad puede provocar que los errores estándar de los coeficientes estén subestimados, afectando los valores $t$ y las decisiones de significancia. Para corregir este problema, se utilizan los estimadores de varianza robusta <strong>HC</strong> (Heteroscedasticity-Consistent), que ajustan los errores estándar sin cambiar los coeficientes estimados.</p>
+<ul>
+<li><strong>HC0</strong>: Estimador original de White, básico y consistente frente a heterocedasticidad.</li>
+<li><strong>HC1</strong>: Ajusta HC0 por los grados de libertad, corrigiendo ligeras subestimaciones.</li>
+<li><strong>HC2</strong>: Considera los <em>leverage points</em> de cada observación, dando más peso a observaciones influyentes.</li>
+<li><strong>HC3</strong>: Aproximación tipo <em>jackknife</em>, más conservadora y recomendada en muestras pequeñas por ofrecer errores estándar más cautelosos.</li>
+</ul>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8cc91c08">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=a8df6694">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/AmesHousing_codificada.csv"</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">'display.float_format'</span><span class="p">,</span> <span class="s1">'</span><span class="si">{:.6f}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
 
-<span class="n">vars_modelo</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">'Overall Qual'</span><span class="p">,</span> <span class="s1">'Gr Liv Area'</span><span class="p">,</span> <span class="s1">'Garage Cars'</span><span class="p">,</span>
-    <span class="s1">'Total Bsmt SF'</span><span class="p">,</span> <span class="s1">'1st Flr SF'</span><span class="p">,</span> <span class="s1">'Full Bath'</span><span class="p">,</span>
-    <span class="s1">'Year Built'</span><span class="p">,</span> <span class="s1">'Fireplaces'</span><span class="p">,</span> <span class="s1">'Lot Area'</span>
-<span class="p">]</span>
+<span class="n">data_modelo_base</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/AmesHousing_codificada.csv"</span><span class="p">)</span>
 
-<span class="n">y_log</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"SalePrice_log"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">vars_modelo</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">X</span><span class="p">])</span>
-<span class="n">nombres_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Intercept"</span><span class="p">]</span> <span class="o">+</span> <span class="n">vars_modelo</span>
+<span class="n">data_modelo_base</span> <span class="o">=</span> <span class="n">data_modelo_base</span><span class="p">[[</span><span class="s1">'SalePrice_log'</span><span class="p">,</span> <span class="s1">'Overall Qual'</span><span class="p">,</span> <span class="s1">'Gr Liv Area'</span><span class="p">,</span> 
+                                     <span class="s1">'Garage Cars'</span><span class="p">,</span> <span class="s1">'Total Bsmt SF'</span><span class="p">,</span> <span class="s1">'1st Flr SF'</span><span class="p">,</span> 
+                                     <span class="s1">'Full Bath'</span><span class="p">,</span> <span class="s1">'Year Built'</span><span class="p">,</span> <span class="s1">'Fireplaces'</span><span class="p">,</span> <span class="s1">'Lot Area'</span><span class="p">]]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data_modelo_base</span><span class="p">[[</span><span class="s1">'Overall Qual'</span><span class="p">,</span> <span class="s1">'Gr Liv Area'</span><span class="p">,</span> <span class="s1">'Garage Cars'</span><span class="p">,</span> <span class="s1">'Total Bsmt SF'</span><span class="p">,</span>
+                      <span class="s1">'1st Flr SF'</span><span class="p">,</span> <span class="s1">'Full Bath'</span><span class="p">,</span> <span class="s1">'Year Built'</span><span class="p">,</span> <span class="s1">'Fireplaces'</span><span class="p">,</span> <span class="s1">'Lot Area'</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data_modelo_base</span><span class="p">[[</span><span class="s1">'SalePrice_log'</span><span class="p">]]</span>
 
-<span class="n">XtX_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">)</span>
-<span class="n">beta_log</span> <span class="o">=</span> <span class="n">XtX_inv</span> <span class="o">@</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y_log</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
-<span class="n">modelo_log</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_log</span><span class="p">,</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">vars_modelo</span><span class="p">]))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">modelo_base</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
-<span class="n">mean_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"SalePrice_log"</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">beta_usd</span> <span class="o">=</span> <span class="n">beta_log</span> <span class="o">*</span> <span class="n">mean_price</span>
-<span class="n">ols_usd</span> <span class="o">=</span> <span class="n">modelo_log</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">mean_price</span>
+<span class="n">resultados_HC0</span> <span class="o">=</span> <span class="n">modelo_base</span><span class="o">.</span><span class="n">get_robustcov_results</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s1">'HC0'</span><span class="p">)</span>
+<span class="n">resultados_HC1</span> <span class="o">=</span> <span class="n">modelo_base</span><span class="o">.</span><span class="n">get_robustcov_results</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s1">'HC1'</span><span class="p">)</span>
+<span class="n">resultados_HC2</span> <span class="o">=</span> <span class="n">modelo_base</span><span class="o">.</span><span class="n">get_robustcov_results</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s1">'HC2'</span><span class="p">)</span>
+<span class="n">resultados_HC3</span> <span class="o">=</span> <span class="n">modelo_base</span><span class="o">.</span><span class="n">get_robustcov_results</span><span class="p">(</span><span class="n">cov_type</span><span class="o">=</span><span class="s1">'HC3'</span><span class="p">)</span>
 
-<span class="n">tabla_comparacion</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">"Variable"</span><span class="p">:</span> <span class="n">nombres_vars</span><span class="p">,</span>
-    <span class="s2">"Formulación matricial"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">beta_usd</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="s2">"Statsmodels"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">ols_usd</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_confint_df</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">var_names</span><span class="p">):</span>
+    <span class="n">ci</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ci</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="n">ci</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">var_names</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ci</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ci</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"lower"</span><span class="p">,</span> <span class="s2">"upper"</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">var_names</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ci</span>
+
+<span class="n">variables</span> <span class="o">=</span> <span class="n">modelo_base</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">index</span>
+
+<span class="n">se_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"OLS"</span><span class="p">:</span> <span class="n">modelo_base</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span>
+    <span class="s2">"HC0"</span><span class="p">:</span> <span class="n">resultados_HC0</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span>
+    <span class="s2">"HC1"</span><span class="p">:</span> <span class="n">resultados_HC1</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span>
+    <span class="s2">"HC2"</span><span class="p">:</span> <span class="n">resultados_HC2</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span>
+    <span class="s2">"HC3"</span><span class="p">:</span> <span class="n">resultados_HC3</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="n">se_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"Variable"</span>
+
+<span class="n">ic_ols</span> <span class="o">=</span> <span class="n">get_confint_df</span><span class="p">(</span><span class="n">modelo_base</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+<span class="n">ic_hc0</span> <span class="o">=</span> <span class="n">get_confint_df</span><span class="p">(</span><span class="n">resultados_HC0</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+<span class="n">ic_hc1</span> <span class="o">=</span> <span class="n">get_confint_df</span><span class="p">(</span><span class="n">resultados_HC1</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+<span class="n">ic_hc2</span> <span class="o">=</span> <span class="n">get_confint_df</span><span class="p">(</span><span class="n">resultados_HC2</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+<span class="n">ic_hc3</span> <span class="o">=</span> <span class="n">get_confint_df</span><span class="p">(</span><span class="n">resultados_HC3</span><span class="p">,</span> <span class="n">variables</span><span class="p">)</span>
+
+<span class="n">ic_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"OLS_lower"</span><span class="p">:</span> <span class="n">ic_ols</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s2">"OLS_upper"</span><span class="p">:</span> <span class="n">ic_ols</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">"HC0_lower"</span><span class="p">:</span> <span class="n">ic_hc0</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s2">"HC0_upper"</span><span class="p">:</span> <span class="n">ic_hc0</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">"HC1_lower"</span><span class="p">:</span> <span class="n">ic_hc1</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s2">"HC1_upper"</span><span class="p">:</span> <span class="n">ic_hc1</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">"HC2_lower"</span><span class="p">:</span> <span class="n">ic_hc2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s2">"HC2_upper"</span><span class="p">:</span> <span class="n">ic_hc2</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">"HC3_lower"</span><span class="p">:</span> <span class="n">ic_hc3</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s2">"HC3_upper"</span><span class="p">:</span> <span class="n">ic_hc3</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">ic_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">variables</span>
+<span class="n">ic_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"Variable"</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">se_df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">"</span><span class="si">{:.6f}</span><span class="s2">"</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<style type="text/css">
+</style>
+<table id="T_c140f">
+<thead>
+<tr>
+<th class="blank level0"> </th>
+<th class="col_heading level0 col0" id="T_c140f_level0_col0">OLS</th>
+<th class="col_heading level0 col1" id="T_c140f_level0_col1">HC0</th>
+<th class="col_heading level0 col2" id="T_c140f_level0_col2">HC1</th>
+<th class="col_heading level0 col3" id="T_c140f_level0_col3">HC2</th>
+<th class="col_heading level0 col4" id="T_c140f_level0_col4">HC3</th>
+</tr>
+<tr>
+<th class="index_name level0">Variable</th>
+<th class="blank col0"> </th>
+<th class="blank col1"> </th>
+<th class="blank col2"> </th>
+<th class="blank col3"> </th>
+<th class="blank col4"> </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="row_heading level0 row0" id="T_c140f_level0_row0">const</th>
+<td class="data row0 col0" id="T_c140f_row0_col0">0.253443</td>
+<td class="data row0 col1" id="T_c140f_row0_col1">0.289644</td>
+<td class="data row0 col2" id="T_c140f_row0_col2">0.290168</td>
+<td class="data row0 col3" id="T_c140f_row0_col3">0.290559</td>
+<td class="data row0 col4" id="T_c140f_row0_col4">0.291480</td>
+</tr>
+<tr>
+<th class="row_heading level0 row1" id="T_c140f_level0_row1">Overall Qual</th>
+<td class="data row1 col0" id="T_c140f_row1_col0">0.003334</td>
+<td class="data row1 col1" id="T_c140f_row1_col1">0.004443</td>
+<td class="data row1 col2" id="T_c140f_row1_col2">0.004451</td>
+<td class="data row1 col3" id="T_c140f_row1_col3">0.004459</td>
+<td class="data row1 col4" id="T_c140f_row1_col4">0.004474</td>
+</tr>
+<tr>
+<th class="row_heading level0 row2" id="T_c140f_level0_row2">Gr Liv Area</th>
+<td class="data row2 col0" id="T_c140f_row2_col0">0.000010</td>
+<td class="data row2 col1" id="T_c140f_row2_col1">0.000010</td>
+<td class="data row2 col2" id="T_c140f_row2_col2">0.000010</td>
+<td class="data row2 col3" id="T_c140f_row2_col3">0.000010</td>
+<td class="data row2 col4" id="T_c140f_row2_col4">0.000011</td>
+</tr>
+<tr>
+<th class="row_heading level0 row3" id="T_c140f_level0_row3">Garage Cars</th>
+<td class="data row3 col0" id="T_c140f_row3_col0">0.005301</td>
+<td class="data row3 col1" id="T_c140f_row3_col1">0.006828</td>
+<td class="data row3 col2" id="T_c140f_row3_col2">0.006841</td>
+<td class="data row3 col3" id="T_c140f_row3_col3">0.006851</td>
+<td class="data row3 col4" id="T_c140f_row3_col4">0.006874</td>
+</tr>
+<tr>
+<th class="row_heading level0 row4" id="T_c140f_level0_row4">Total Bsmt SF</th>
+<td class="data row4 col0" id="T_c140f_row4_col0">0.000013</td>
+<td class="data row4 col1" id="T_c140f_row4_col1">0.000015</td>
+<td class="data row4 col2" id="T_c140f_row4_col2">0.000015</td>
+<td class="data row4 col3" id="T_c140f_row4_col3">0.000015</td>
+<td class="data row4 col4" id="T_c140f_row4_col4">0.000015</td>
+</tr>
+<tr>
+<th class="row_heading level0 row5" id="T_c140f_level0_row5">1st Flr SF</th>
+<td class="data row5 col0" id="T_c140f_row5_col0">0.000014</td>
+<td class="data row5 col1" id="T_c140f_row5_col1">0.000016</td>
+<td class="data row5 col2" id="T_c140f_row5_col2">0.000016</td>
+<td class="data row5 col3" id="T_c140f_row5_col3">0.000016</td>
+<td class="data row5 col4" id="T_c140f_row5_col4">0.000016</td>
+</tr>
+<tr>
+<th class="row_heading level0 row6" id="T_c140f_level0_row6">Full Bath</th>
+<td class="data row6 col0" id="T_c140f_row6_col0">0.007656</td>
+<td class="data row6 col1" id="T_c140f_row6_col1">0.008385</td>
+<td class="data row6 col2" id="T_c140f_row6_col2">0.008400</td>
+<td class="data row6 col3" id="T_c140f_row6_col3">0.008412</td>
+<td class="data row6 col4" id="T_c140f_row6_col4">0.008439</td>
+</tr>
+<tr>
+<th class="row_heading level0 row7" id="T_c140f_level0_row7">Year Built</th>
+<td class="data row7 col0" id="T_c140f_row7_col0">0.000134</td>
+<td class="data row7 col1" id="T_c140f_row7_col1">0.000151</td>
+<td class="data row7 col2" id="T_c140f_row7_col2">0.000151</td>
+<td class="data row7 col3" id="T_c140f_row7_col3">0.000151</td>
+<td class="data row7 col4" id="T_c140f_row7_col4">0.000152</td>
+</tr>
+<tr>
+<th class="row_heading level0 row8" id="T_c140f_level0_row8">Fireplaces</th>
+<td class="data row8 col0" id="T_c140f_row8_col0">0.005274</td>
+<td class="data row8 col1" id="T_c140f_row8_col1">0.005640</td>
+<td class="data row8 col2" id="T_c140f_row8_col2">0.005650</td>
+<td class="data row8 col3" id="T_c140f_row8_col3">0.005658</td>
+<td class="data row8 col4" id="T_c140f_row8_col4">0.005676</td>
+</tr>
+<tr>
+<th class="row_heading level0 row9" id="T_c140f_level0_row9">Lot Area</th>
+<td class="data row9 col0" id="T_c140f_row9_col0">0.000001</td>
+<td class="data row9 col1" id="T_c140f_row9_col1">0.000001</td>
+<td class="data row9 col2" id="T_c140f_row9_col2">0.000001</td>
+<td class="data row9 col3" id="T_c140f_row9_col3">0.000001</td>
+<td class="data row9 col4" id="T_c140f_row9_col4">0.000001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0a95255c">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Tabla 7.1.1.</strong> Errores estándar OLS vs. HC0-HC3.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8542099b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Se observa que los errores estándar aumentan ligeramente cuando se aplican las correcciones HC, especialmente para variables como <code>Overall Qual</code>, <code>Garage Cars</code> y <code>Full Bath</code>. Esto indica que los estimadores OLS originales podrían subestimar la variabilidad de los coeficientes si existe heterocedasticidad.</p>
+<p>Por ejemplo, el coeficiente de <code>Overall Qual</code> tiene un error estándar de 0.00333 bajo OLS clásico, que se incrementa a 0.00447 bajo HC3, la corrección más conservadora. De manera similar, <code>Garage Cars</code> pasa de 0.00530 a 0.00687.</p>
+<p>Las variables con cambios mínimos en los errores estándar (como <code>Gr Liv Area</code> o <code>Lot Area</code>) sugieren que su variabilidad está poco afectada por heterocedasticidad.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7b93d49d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [31]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">ic_df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">"</span><span class="si">{:.6f}</span><span class="s2">"</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<style type="text/css">
+</style>
+<table id="T_0882a">
+<thead>
+<tr>
+<th class="blank level0"> </th>
+<th class="col_heading level0 col0" id="T_0882a_level0_col0">OLS_lower</th>
+<th class="col_heading level0 col1" id="T_0882a_level0_col1">OLS_upper</th>
+<th class="col_heading level0 col2" id="T_0882a_level0_col2">HC0_lower</th>
+<th class="col_heading level0 col3" id="T_0882a_level0_col3">HC0_upper</th>
+<th class="col_heading level0 col4" id="T_0882a_level0_col4">HC1_lower</th>
+<th class="col_heading level0 col5" id="T_0882a_level0_col5">HC1_upper</th>
+<th class="col_heading level0 col6" id="T_0882a_level0_col6">HC2_lower</th>
+<th class="col_heading level0 col7" id="T_0882a_level0_col7">HC2_upper</th>
+<th class="col_heading level0 col8" id="T_0882a_level0_col8">HC3_lower</th>
+<th class="col_heading level0 col9" id="T_0882a_level0_col9">HC3_upper</th>
+</tr>
+<tr>
+<th class="index_name level0">Variable</th>
+<th class="blank col0"> </th>
+<th class="blank col1"> </th>
+<th class="blank col2"> </th>
+<th class="blank col3"> </th>
+<th class="blank col4"> </th>
+<th class="blank col5"> </th>
+<th class="blank col6"> </th>
+<th class="blank col7"> </th>
+<th class="blank col8"> </th>
+<th class="blank col9"> </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="row_heading level0 row0" id="T_0882a_level0_row0">const</th>
+<td class="data row0 col0" id="T_0882a_row0_col0">4.749133</td>
+<td class="data row0 col1" id="T_0882a_row0_col1">5.743047</td>
+<td class="data row0 col2" id="T_0882a_row0_col2">4.678149</td>
+<td class="data row0 col3" id="T_0882a_row0_col3">5.814030</td>
+<td class="data row0 col4" id="T_0882a_row0_col4">4.677121</td>
+<td class="data row0 col5" id="T_0882a_row0_col5">5.815059</td>
+<td class="data row0 col6" id="T_0882a_row0_col6">4.676355</td>
+<td class="data row0 col7" id="T_0882a_row0_col7">5.815825</td>
+<td class="data row0 col8" id="T_0882a_row0_col8">4.674550</td>
+<td class="data row0 col9" id="T_0882a_row0_col9">5.817630</td>
+</tr>
+<tr>
+<th class="row_heading level0 row1" id="T_0882a_level0_row1">Overall Qual</th>
+<td class="data row1 col0" id="T_0882a_row1_col0">0.095133</td>
+<td class="data row1 col1" id="T_0882a_row1_col1">0.108206</td>
+<td class="data row1 col2" id="T_0882a_row1_col2">0.092957</td>
+<td class="data row1 col3" id="T_0882a_row1_col3">0.110382</td>
+<td class="data row1 col4" id="T_0882a_row1_col4">0.092942</td>
+<td class="data row1 col5" id="T_0882a_row1_col5">0.110397</td>
+<td class="data row1 col6" id="T_0882a_row1_col6">0.092927</td>
+<td class="data row1 col7" id="T_0882a_row1_col7">0.110412</td>
+<td class="data row1 col8" id="T_0882a_row1_col8">0.092897</td>
+<td class="data row1 col9" id="T_0882a_row1_col9">0.110442</td>
+</tr>
+<tr>
+<th class="row_heading level0 row2" id="T_0882a_level0_row2">Gr Liv Area</th>
+<td class="data row2 col0" id="T_0882a_row2_col0">0.000220</td>
+<td class="data row2 col1" id="T_0882a_row2_col1">0.000259</td>
+<td class="data row2 col2" id="T_0882a_row2_col2">0.000219</td>
+<td class="data row2 col3" id="T_0882a_row2_col3">0.000260</td>
+<td class="data row2 col4" id="T_0882a_row2_col4">0.000219</td>
+<td class="data row2 col5" id="T_0882a_row2_col5">0.000260</td>
+<td class="data row2 col6" id="T_0882a_row2_col6">0.000219</td>
+<td class="data row2 col7" id="T_0882a_row2_col7">0.000260</td>
+<td class="data row2 col8" id="T_0882a_row2_col8">0.000219</td>
+<td class="data row2 col9" id="T_0882a_row2_col9">0.000260</td>
+</tr>
+<tr>
+<th class="row_heading level0 row3" id="T_0882a_level0_row3">Garage Cars</th>
+<td class="data row3 col0" id="T_0882a_row3_col0">0.038647</td>
+<td class="data row3 col1" id="T_0882a_row3_col1">0.059434</td>
+<td class="data row3 col2" id="T_0882a_row3_col2">0.035652</td>
+<td class="data row3 col3" id="T_0882a_row3_col3">0.062430</td>
+<td class="data row3 col4" id="T_0882a_row3_col4">0.035627</td>
+<td class="data row3 col5" id="T_0882a_row3_col5">0.062454</td>
+<td class="data row3 col6" id="T_0882a_row3_col6">0.035607</td>
+<td class="data row3 col7" id="T_0882a_row3_col7">0.062475</td>
+<td class="data row3 col8" id="T_0882a_row3_col8">0.035561</td>
+<td class="data row3 col9" id="T_0882a_row3_col9">0.062520</td>
+</tr>
+<tr>
+<th class="row_heading level0 row4" id="T_0882a_level0_row4">Total Bsmt SF</th>
+<td class="data row4 col0" id="T_0882a_row4_col0">0.000129</td>
+<td class="data row4 col1" id="T_0882a_row4_col1">0.000178</td>
+<td class="data row4 col2" id="T_0882a_row4_col2">0.000125</td>
+<td class="data row4 col3" id="T_0882a_row4_col3">0.000182</td>
+<td class="data row4 col4" id="T_0882a_row4_col4">0.000125</td>
+<td class="data row4 col5" id="T_0882a_row4_col5">0.000182</td>
+<td class="data row4 col6" id="T_0882a_row4_col6">0.000125</td>
+<td class="data row4 col7" id="T_0882a_row4_col7">0.000182</td>
+<td class="data row4 col8" id="T_0882a_row4_col8">0.000125</td>
+<td class="data row4 col9" id="T_0882a_row4_col9">0.000183</td>
+</tr>
+<tr>
+<th class="row_heading level0 row5" id="T_0882a_level0_row5">1st Flr SF</th>
+<td class="data row5 col0" id="T_0882a_row5_col0">-0.000026</td>
+<td class="data row5 col1" id="T_0882a_row5_col1">0.000031</td>
+<td class="data row5 col2" id="T_0882a_row5_col2">-0.000028</td>
+<td class="data row5 col3" id="T_0882a_row5_col3">0.000033</td>
+<td class="data row5 col4" id="T_0882a_row5_col4">-0.000028</td>
+<td class="data row5 col5" id="T_0882a_row5_col5">0.000033</td>
+<td class="data row5 col6" id="T_0882a_row5_col6">-0.000028</td>
+<td class="data row5 col7" id="T_0882a_row5_col7">0.000033</td>
+<td class="data row5 col8" id="T_0882a_row5_col8">-0.000028</td>
+<td class="data row5 col9" id="T_0882a_row5_col9">0.000033</td>
+</tr>
+<tr>
+<th class="row_heading level0 row6" id="T_0882a_level0_row6">Full Bath</th>
+<td class="data row6 col0" id="T_0882a_row6_col0">-0.028511</td>
+<td class="data row6 col1" id="T_0882a_row6_col1">0.001512</td>
+<td class="data row6 col2" id="T_0882a_row6_col2">-0.029940</td>
+<td class="data row6 col3" id="T_0882a_row6_col3">0.002941</td>
+<td class="data row6 col4" id="T_0882a_row6_col4">-0.029970</td>
+<td class="data row6 col5" id="T_0882a_row6_col5">0.002971</td>
+<td class="data row6 col6" id="T_0882a_row6_col6">-0.029993</td>
+<td class="data row6 col7" id="T_0882a_row6_col7">0.002994</td>
+<td class="data row6 col8" id="T_0882a_row6_col8">-0.030046</td>
+<td class="data row6 col9" id="T_0882a_row6_col9">0.003047</td>
+</tr>
+<tr>
+<th class="row_heading level0 row7" id="T_0882a_level0_row7">Year Built</th>
+<td class="data row7 col0" id="T_0882a_row7_col0">0.002500</td>
+<td class="data row7 col1" id="T_0882a_row7_col1">0.003024</td>
+<td class="data row7 col2" id="T_0882a_row7_col2">0.002467</td>
+<td class="data row7 col3" id="T_0882a_row7_col3">0.003058</td>
+<td class="data row7 col4" id="T_0882a_row7_col4">0.002466</td>
+<td class="data row7 col5" id="T_0882a_row7_col5">0.003058</td>
+<td class="data row7 col6" id="T_0882a_row7_col6">0.002466</td>
+<td class="data row7 col7" id="T_0882a_row7_col7">0.003059</td>
+<td class="data row7 col8" id="T_0882a_row7_col8">0.002465</td>
+<td class="data row7 col9" id="T_0882a_row7_col9">0.003060</td>
+</tr>
+<tr>
+<th class="row_heading level0 row8" id="T_0882a_level0_row8">Fireplaces</th>
+<td class="data row8 col0" id="T_0882a_row8_col0">0.035813</td>
+<td class="data row8 col1" id="T_0882a_row8_col1">0.056495</td>
+<td class="data row8 col2" id="T_0882a_row8_col2">0.035095</td>
+<td class="data row8 col3" id="T_0882a_row8_col3">0.057213</td>
+<td class="data row8 col4" id="T_0882a_row8_col4">0.035075</td>
+<td class="data row8 col5" id="T_0882a_row8_col5">0.057233</td>
+<td class="data row8 col6" id="T_0882a_row8_col6">0.035060</td>
+<td class="data row8 col7" id="T_0882a_row8_col7">0.057248</td>
+<td class="data row8 col8" id="T_0882a_row8_col8">0.035025</td>
+<td class="data row8 col9" id="T_0882a_row8_col9">0.057283</td>
+</tr>
+<tr>
+<th class="row_heading level0 row9" id="T_0882a_level0_row9">Lot Area</th>
+<td class="data row9 col0" id="T_0882a_row9_col0">0.000008</td>
+<td class="data row9 col1" id="T_0882a_row9_col1">0.000011</td>
+<td class="data row9 col2" id="T_0882a_row9_col2">0.000008</td>
+<td class="data row9 col3" id="T_0882a_row9_col3">0.000012</td>
+<td class="data row9 col4" id="T_0882a_row9_col4">0.000008</td>
+<td class="data row9 col5" id="T_0882a_row9_col5">0.000012</td>
+<td class="data row9 col6" id="T_0882a_row9_col6">0.000008</td>
+<td class="data row9 col7" id="T_0882a_row9_col7">0.000012</td>
+<td class="data row9 col8" id="T_0882a_row9_col8">0.000008</td>
+<td class="data row9 col9" id="T_0882a_row9_col9">0.000012</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=aa202325">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Tabla 7.1.2.</strong> Intervalos de confianza OLS vs. HC0-HC3.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3fa9f7fd">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Se puede observar que los intervalos de confianza se ensanchan ligeramente cuando se aplican las correcciones HC, reflejando un aumento en la incertidumbre de los coeficientes. Por ejemplo, el coeficiente de <code>Overall Qual</code> tiene un intervalo de confianza de [0.095, 0.108] bajo OLS, que se amplía a [0.0929, 0.1104] con HC3. Lo mismo ocurre con <code>Garage Cars</code> y <code>Full Bath</code>, indicando que las inferencias de estos coeficientes son sensibles a la heterocedasticidad.</p>
+<p>En contraste, intervalos de confianza prácticamente inalterados, como los de <code>Gr Liv Area</code> o <code>Lot Area</code>, sugieren que la heterocedasticidad tiene poco efecto sobre la precisión de estos coeficientes.</p>
+<p>En general, aplicar correcciones HC permite obtener intervalos de confianza más robustos, proporcionando inferencias más conservadoras y fiables cuando se sospecha heterocedasticidad.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=267b7b88">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="7.2-Modelos-robustos-con-funciones-Huber/Tukey">7.2 Modelos robustos con funciones Huber/Tukey<a class="anchor-link" href="#7.2-Modelos-robustos-con-funciones-Huber/Tukey">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0538f814">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Los <strong>modelos de regresión robusta</strong> son una extensión de la regresión lineal ordinaria diseñada para reducir la influencia de outliers o valores atípicos en la estimación de los coeficientes. Mientras que la regresión OLS pondera todos los residuales por igual, los modelos robustos asignan <strong>menor peso a los residuales grandes</strong>, permitiendo obtener estimaciones más confiables y estables.</p>
+<p>Existen diversas funciones de pérdida que determinan cómo se penalizan los residuales, donde cada una equilibra de distinta manera la eficiencia para valores centrales y la robustez frente a outliers extremos:</p>
+<ul>
+<li><strong>Huber / TukeyHuberT()</strong>:</li>
+</ul>
+<p>$$
+\rho(r) = 
+\begin{cases} 
+\frac{1}{2} r^2 &amp; \text{si } |r| \le \delta \\[2mm]
+\delta \left(|r| - \frac{1}{2}\delta \right) &amp; \text{si } |r| &gt; \delta
+\end{cases}
+$$<br/>
+<strong>Ecuación 7.2.1.</strong> Función de pérdida Huber.</p>
+<p>Protege contra outliers moderados manteniendo eficiencia para valores centrales.</p>
+<ul>
+<li><strong>Tukey Biweight</strong>:</li>
+</ul>
+<p>$$
+\rho(r) = 
+\begin{cases}
+\frac{c^2}{6} \left[ 1 - \left(1 - \left(\frac{r}{c}\right)^2 \right)^3 \right] &amp; \text{si } |r| \le c \\[1mm]
+\frac{c^2}{6} &amp; \text{si } |r| &gt; c
+\end{cases}
+$$<br/>
+<strong>Ecuación 7.2.2.</strong> Función de pérdida Tukey.</p>
+<p>Limita el impacto de observaciones lejanas sin eliminarlas completamente.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d318ce65">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [32]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">rlm_huber</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">RLM</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">robust</span><span class="o">.</span><span class="n">norms</span><span class="o">.</span><span class="n">HuberT</span><span class="p">())</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>       <span class="c1"># Función de pérdida Huber</span>
+<span class="n">rlm_tukey</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">RLM</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">robust</span><span class="o">.</span><span class="n">norms</span><span class="o">.</span><span class="n">TukeyBiweight</span><span class="p">())</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span> <span class="c1"># Función de pérdida Tukey Biweight</span>
+
+<span class="n">rlm_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'OLS'</span><span class="p">:</span> <span class="n">modelo_base</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+    <span class="s1">'RLM_Huber'</span><span class="p">:</span> <span class="n">rlm_huber</span><span class="o">.</span><span class="n">params</span><span class="p">,</span>
+    <span class="s1">'RLM_Tukey'</span><span class="p">:</span> <span class="n">rlm_tukey</span><span class="o">.</span><span class="n">params</span>
 <span class="p">})</span>
 
-<span class="n">display</span><span class="p">(</span><span class="n">tabla_comparacion</span><span class="p">)</span>
+<span class="n">weights_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'Huber_weights'</span><span class="p">:</span> <span class="n">rlm_huber</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span>
+    <span class="s1">'Tukey_weights'</span><span class="p">:</span> <span class="n">rlm_tukey</span><span class="o">.</span><span class="n">weights</span>
+<span class="p">})</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">rlm_df</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7628,71 +8081,71 @@ $$</p>
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>Variable</th>
-<th>Formulación matricial</th>
-<th>Statsmodels</th>
+<th>OLS</th>
+<th>RLM_Huber</th>
+<th>RLM_Tukey</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<th>0</th>
-<td>Intercept</td>
-<td>912601.01</td>
-<td>912601.01</td>
+<th>const</th>
+<td>5.246090</td>
+<td>5.554695</td>
+<td>5.757333</td>
 </tr>
 <tr>
-<th>1</th>
-<td>Overall Qual</td>
-<td>17686.26</td>
-<td>17686.26</td>
+<th>Overall Qual</th>
+<td>0.101670</td>
+<td>0.093458</td>
+<td>0.090582</td>
 </tr>
 <tr>
-<th>2</th>
-<td>Gr Liv Area</td>
-<td>41.72</td>
-<td>41.72</td>
+<th>Gr Liv Area</th>
+<td>0.000240</td>
+<td>0.000243</td>
+<td>0.000245</td>
 </tr>
 <tr>
-<th>3</th>
-<td>Garage Cars</td>
-<td>8531.03</td>
-<td>8531.03</td>
+<th>Garage Cars</th>
+<td>0.049041</td>
+<td>0.055135</td>
+<td>0.056782</td>
 </tr>
 <tr>
-<th>4</th>
-<td>Total Bsmt SF</td>
-<td>26.75</td>
-<td>26.75</td>
+<th>Total Bsmt SF</th>
+<td>0.000154</td>
+<td>0.000169</td>
+<td>0.000176</td>
 </tr>
 <tr>
-<th>5</th>
-<td>1st Flr SF</td>
-<td>0.44</td>
-<td>0.44</td>
+<th>1st Flr SF</th>
+<td>0.000003</td>
+<td>-0.000008</td>
+<td>-0.000013</td>
 </tr>
 <tr>
-<th>6</th>
-<td>Full Bath</td>
-<td>-2348.34</td>
-<td>-2348.34</td>
+<th>Full Bath</th>
+<td>-0.013499</td>
+<td>-0.017119</td>
+<td>-0.016548</td>
 </tr>
 <tr>
-<th>7</th>
-<td>Year Built</td>
-<td>480.51</td>
-<td>480.51</td>
+<th>Year Built</th>
+<td>0.002762</td>
+<td>0.002626</td>
+<td>0.002528</td>
 </tr>
 <tr>
-<th>8</th>
-<td>Fireplaces</td>
-<td>8028.88</td>
-<td>8028.88</td>
+<th>Fireplaces</th>
+<td>0.046154</td>
+<td>0.040135</td>
+<td>0.038912</td>
 </tr>
 <tr>
-<th>9</th>
-<td>Lot Area</td>
-<td>1.71</td>
-<td>1.71</td>
+<th>Lot Area</th>
+<td>0.000010</td>
+<td>0.000011</td>
+<td>0.000011</td>
 </tr>
 </tbody>
 </table>
@@ -7702,26 +8155,773 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e45f6dca">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0d95b8d9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Tabla 4.1.1.</strong> Formulación matricial vs. Statsmodels.</p>
+<p><strong>Tabla 7.2.1.</strong> Coeficientes OLS vs. RLM. <em>Valores en escala logarítmica.</em></p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bd0f9558">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b2c2eb0d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Se construye un modelo de regresión lineal para predecir <code>SalePrice</code> a partir de nueve variables predictoras.</p>
-<p>Primero se calculan los coeficientes manualmente usando la formulación matricial de OLS, y luego se ajusta el mismo modelo con <code>statsmodels</code> para verificar los resultados. Se observan los mismos coeficientes.</p>
-<p>Cada coeficiente indica cuánto se espera que cambie el <code>SalePrice</code> por un incremento de una unidad en la variable correspondiente, manteniendo constantes las demás variables. Por ejemplo, el coeficiente de <code>Overall Qual</code> es aproximadamente 17 686. Esto significa que, en promedio, por cada punto adicional en la calificación general de la casa, se espera que el precio de venta aumente unos 17 686 dólares, manteniendo constantes las otras variables del modelo.</p>
+<p>Se observa que el intercepto (<code>const</code>) aumenta al usar modelos robustos, lo que refleja que los outliers tienden a sesgar hacia abajo la estimación en OLS. Por su parte, variables como <code>Overall Qual</code> y <code>Fireplaces</code> muestran coeficientes algo menores en modelos robustos, indicando que su efecto estaba ligeramente sobreestimado por la presencia de outliers.</p>
+<p>Para la mayoría de las demás variables (<code>Gr Liv Area</code>, <code>Garage Cars</code>, <code>Total Bsmt SF</code>, <code>Year Built</code>), las diferencias son pequeñas, lo que sugiere que los outliers no tienen un impacto fuerte en estas estimaciones.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=89c0767e">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [33]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">weights_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Huber_weights</th>
+<th>Tukey_weights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>1.000000</td>
+<td>0.953644</td>
+</tr>
+<tr>
+<th>1</th>
+<td>1.000000</td>
+<td>0.866662</td>
+</tr>
+<tr>
+<th>2</th>
+<td>1.000000</td>
+<td>0.970765</td>
+</tr>
+<tr>
+<th>3</th>
+<td>1.000000</td>
+<td>0.922950</td>
+</tr>
+<tr>
+<th>4</th>
+<td>1.000000</td>
+<td>0.962404</td>
+</tr>
+<tr>
+<th>...</th>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<th>2763</th>
+<td>1.000000</td>
+<td>0.986576</td>
+</tr>
+<tr>
+<th>2764</th>
+<td>1.000000</td>
+<td>0.999931</td>
+</tr>
+<tr>
+<th>2765</th>
+<td>1.000000</td>
+<td>0.974192</td>
+</tr>
+<tr>
+<th>2766</th>
+<td>1.000000</td>
+<td>0.993637</td>
+</tr>
+<tr>
+<th>2767</th>
+<td>0.693427</td>
+<td>0.679286</td>
+</tr>
+</tbody>
+</table>
+<p>2768 rows × 2 columns</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7e7d34e2">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Tabla 7.2.2.</strong> Pesos outliers Huber vs. Tukey.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e471bf62">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>La mayoría de los pesos son cercanos a 1 en ambos modelos robustos, lo que indica que la mayoría de las observaciones se ajusta bien al modelo y tiene plena influencia en la estimación de los coeficientes.</p>
+<p>Sin embargo, algunas observaciones presentan pesos menores, como la última fila, con Huber = 0.69 y Tukey = 0.68, lo que refleja que su residuo es relativamente grande y su efecto en el ajuste se atenúa.</p>
+<p>Además, es evidente que Tukey aplica un castigo más fuerte a residuales extremos.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4c882390">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="7.3-Bootstrap">7.3 Bootstrap<a class="anchor-link" href="#7.3-Bootstrap">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c4629179">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>El <strong>bootstrap</strong> es un método de remuestreo que permite estimar la variabilidad de los coeficientes de un modelo sin asumir una distribución específica de los errores. Consiste en generar múltiples muestras con reemplazo a partir de los datos originales y recalcular los estimadores para cada réplica, obteniendo así una <strong>distribución empírica</strong> de los coeficientes, a partir de la cual se calculan el error estándar y los intervalos de confianza.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4957e23d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [34]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">resample</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">coef_boot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">B</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">B</span><span class="p">):</span>
+    <span class="n">X_resample</span><span class="p">,</span> <span class="n">y_resample</span> <span class="o">=</span> <span class="n">resample</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">model_bs</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_resample</span><span class="p">,</span> <span class="n">X_resample</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="n">coef_boot</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">model_bs</span><span class="o">.</span><span class="n">params</span>
+
+<span class="n">coef_mean</span> <span class="o">=</span> <span class="n">coef_boot</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>        
+<span class="n">coef_se</span> <span class="o">=</span> <span class="n">coef_boot</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>                     
+<span class="n">ic_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">coef_boot</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>       
+<span class="n">ic_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">coef_boot</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  
+
+<span class="n">bootstrap_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'Coef_mean'</span><span class="p">:</span> <span class="n">coef_mean</span><span class="p">,</span>
+    <span class="s1">'SE_bootstrap'</span><span class="p">:</span> <span class="n">coef_se</span><span class="p">,</span>
+    <span class="s1">'IC_2.5%'</span><span class="p">:</span> <span class="n">ic_lower</span><span class="p">,</span>
+    <span class="s1">'IC_97.5%'</span><span class="p">:</span> <span class="n">ic_upper</span>
+<span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="n">bootstrap_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'bootstrap_df.csv'</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">","</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">bootstrap_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[34]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Coef_mean</th>
+<th>SE_bootstrap</th>
+<th>IC_2.5%</th>
+<th>IC_97.5%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>const</th>
+<td>5.246684</td>
+<td>0.302510</td>
+<td>4.648706</td>
+<td>5.799788</td>
+</tr>
+<tr>
+<th>Overall Qual</th>
+<td>0.101703</td>
+<td>0.004466</td>
+<td>0.093279</td>
+<td>0.111147</td>
+</tr>
+<tr>
+<th>Gr Liv Area</th>
+<td>0.000240</td>
+<td>0.000010</td>
+<td>0.000220</td>
+<td>0.000261</td>
+</tr>
+<tr>
+<th>Garage Cars</th>
+<td>0.049043</td>
+<td>0.006850</td>
+<td>0.035084</td>
+<td>0.062558</td>
+</tr>
+<tr>
+<th>Total Bsmt SF</th>
+<td>0.000154</td>
+<td>0.000015</td>
+<td>0.000126</td>
+<td>0.000182</td>
+</tr>
+<tr>
+<th>1st Flr SF</th>
+<td>0.000003</td>
+<td>0.000015</td>
+<td>-0.000026</td>
+<td>0.000033</td>
+</tr>
+<tr>
+<th>Full Bath</th>
+<td>-0.013666</td>
+<td>0.008654</td>
+<td>-0.031201</td>
+<td>0.003356</td>
+</tr>
+<tr>
+<th>Year Built</th>
+<td>0.002762</td>
+<td>0.000158</td>
+<td>0.002468</td>
+<td>0.003068</td>
+</tr>
+<tr>
+<th>Fireplaces</th>
+<td>0.046289</td>
+<td>0.005697</td>
+<td>0.035471</td>
+<td>0.056718</td>
+</tr>
+<tr>
+<th>Lot Area</th>
+<td>0.000010</td>
+<td>0.000001</td>
+<td>0.000008</td>
+<td>0.000012</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ec6dc5d2">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Tabla 7.3.1.</strong> Resumen Bootstrap.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=83418582">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Se observa que variables como <code>Overall Qual</code>, <code>Gr Liv Area</code>, <code>Garage Cars</code> y <code>Year Built</code> tienen coeficientes claramente distintos de cero, con intervalos de confianza estrechos y consistentes, lo que sugiere estimaciones robustas y estables. Por el contrario, <code>1st Flr SF</code> y <code>Full Bath</code> presentan intervalos que incluyen el cero, indicando que su efecto sobre la variable respuesta podría no ser significativo.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b898b515">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="7.4-OLS-vs.-HC3-vs.-Bootstrap">7.4 OLS vs. HC3 vs. Bootstrap<a class="anchor-link" href="#7.4-OLS-vs.-HC3-vs.-Bootstrap">¶</a></h3>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=99fd3282">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [35]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">coef_ols</span> <span class="o">=</span> <span class="n">modelo_base</span><span class="o">.</span><span class="n">params</span>         
+<span class="n">se_ols</span> <span class="o">=</span> <span class="n">modelo_base</span><span class="o">.</span><span class="n">bse</span>               
+
+<span class="n">se_hc3</span> <span class="o">=</span> <span class="n">resultados_HC3</span><span class="o">.</span><span class="n">bse</span>            
+
+<span class="n">coef_boot_mean</span> <span class="o">=</span> <span class="n">bootstrap_df</span><span class="p">[</span><span class="s1">'Coef_mean'</span><span class="p">]</span>  
+<span class="n">se_boot</span> <span class="o">=</span> <span class="n">bootstrap_df</span><span class="p">[</span><span class="s1">'SE_bootstrap'</span><span class="p">]</span>  
+
+<span class="n">ic_ols</span> <span class="o">=</span> <span class="n">modelo_base</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">modelo_base</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">ic_hc3</span> <span class="o">=</span> <span class="n">resultados_HC3</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">resultados_HC3</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()[:,</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">ic_boot</span> <span class="o">=</span> <span class="n">bootstrap_df</span><span class="p">[</span><span class="s1">'IC_97.5%'</span><span class="p">]</span> <span class="o">-</span> <span class="n">bootstrap_df</span><span class="p">[</span><span class="s1">'IC_2.5%'</span><span class="p">]</span>
+
+<span class="n">coef_df</span> <span class="o">=</span> <span class="n">comparative_df</span><span class="p">[[</span><span class="s1">'Coef_OLS'</span><span class="p">,</span> <span class="s1">'Coef_Bootstrap'</span><span class="p">]]</span>
+<span class="n">se_df</span> <span class="o">=</span> <span class="n">comparative_df</span><span class="p">[[</span><span class="s1">'SE_OLS'</span><span class="p">,</span> <span class="s1">'SE_HC3'</span><span class="p">,</span> <span class="s1">'SE_Bootstrap'</span><span class="p">]]</span>
+<span class="n">ic_df</span> <span class="o">=</span> <span class="n">comparative_df</span><span class="p">[[</span><span class="s1">'IC_width_OLS'</span><span class="p">,</span> <span class="s1">'IC_width_HC3'</span><span class="p">,</span> <span class="s1">'IC_width_Bootstrap'</span><span class="p">]]</span>
+<span class="n">coef_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[35]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Coef_OLS</th>
+<th>Coef_Bootstrap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>const</th>
+<td>5.246090</td>
+<td>5.250174</td>
+</tr>
+<tr>
+<th>Overall Qual</th>
+<td>0.101670</td>
+<td>0.101557</td>
+</tr>
+<tr>
+<th>Gr Liv Area</th>
+<td>0.000240</td>
+<td>0.000240</td>
+</tr>
+<tr>
+<th>Garage Cars</th>
+<td>0.049041</td>
+<td>0.049130</td>
+</tr>
+<tr>
+<th>Total Bsmt SF</th>
+<td>0.000154</td>
+<td>0.000154</td>
+</tr>
+<tr>
+<th>1st Flr SF</th>
+<td>0.000003</td>
+<td>0.000002</td>
+</tr>
+<tr>
+<th>Full Bath</th>
+<td>-0.013499</td>
+<td>-0.013707</td>
+</tr>
+<tr>
+<th>Year Built</th>
+<td>0.002762</td>
+<td>0.002760</td>
+</tr>
+<tr>
+<th>Fireplaces</th>
+<td>0.046154</td>
+<td>0.046325</td>
+</tr>
+<tr>
+<th>Lot Area</th>
+<td>0.000010</td>
+<td>0.000010</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=94934c55">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Tabla 7.4.1.</strong> Coeficientes OLS vs. Bootstrap. <em>Valores en escala logarítmica.</em></p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f5d9f0e0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Se observa que la estimación de los parámetros es muy estable frente al remuestreo, lo que sugiere que la muestra utilizada es suficientemente representativa y que los coeficientes no dependen excesivamente de observaciones individuales.</p>
+<p>En particular, las variables como <code>Overall Qual</code>, <code>Gr Liv Area</code> y <code>Fireplaces</code> muestran coeficientes positivos consistentes en ambos métodos, confirmando su relación directa con el precio de la vivienda. Por su parte, <code>Full Bath</code> mantiene un coeficiente ligeramente negativo, indicando que, controlando por las demás variables, su efecto es mínimo.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7be3fa5a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [36]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">se_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[36]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>SE_OLS</th>
+<th>SE_HC3</th>
+<th>SE_Bootstrap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>const</th>
+<td>0.253443</td>
+<td>0.291480</td>
+<td>0.293526</td>
+</tr>
+<tr>
+<th>Overall Qual</th>
+<td>0.003334</td>
+<td>0.004474</td>
+<td>0.004601</td>
+</tr>
+<tr>
+<th>Gr Liv Area</th>
+<td>0.000010</td>
+<td>0.000011</td>
+<td>0.000010</td>
+</tr>
+<tr>
+<th>Garage Cars</th>
+<td>0.005301</td>
+<td>0.006874</td>
+<td>0.006840</td>
+</tr>
+<tr>
+<th>Total Bsmt SF</th>
+<td>0.000013</td>
+<td>0.000015</td>
+<td>0.000015</td>
+</tr>
+<tr>
+<th>1st Flr SF</th>
+<td>0.000014</td>
+<td>0.000016</td>
+<td>0.000016</td>
+</tr>
+<tr>
+<th>Full Bath</th>
+<td>0.007656</td>
+<td>0.008439</td>
+<td>0.008414</td>
+</tr>
+<tr>
+<th>Year Built</th>
+<td>0.000134</td>
+<td>0.000152</td>
+<td>0.000153</td>
+</tr>
+<tr>
+<th>Fireplaces</th>
+<td>0.005274</td>
+<td>0.005676</td>
+<td>0.005661</td>
+</tr>
+<tr>
+<th>Lot Area</th>
+<td>0.000001</td>
+<td>0.000001</td>
+<td>0.000001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2abe30f0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Tabla 7.4.2.</strong> Errores estándar OLS vs. HC3 vs. Bootstrap.<a id="tabla-742-se-ols-hc3-boot"></a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ff7f5e42">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Los errores estándar de OLS son generalmente menores que los obtenidos mediante HC3 o bootstrap, lo que sugiere que este modelo inicial podría subestimar la incertidumbre cuando hay heterocedasticidad presente o dependiendo de la muestra seleccionada.</p>
+<p>El método HC3, diseñado para ser más conservador frente a heterocedasticidad y leverage points, produce errores estándar ligeramente mayores que OLS, especialmente para variables como <code>Overall Qual</code>, <code>Garage Cars</code> y <code>Full Bath</code>. El bootstrap refleja un patrón muy similar al de HC3, confirmando la estabilidad de las estimaciones.</p>
+<p>Es notable que las variables con errores estándar relativamente bajos (<code>Gr Liv Area</code>, <code>Lot Area</code>) están estimadas con gran precisión, mientras que aquellas con errores más altos (<code>Full Bath</code>, <code>Garage Cars</code>) presentan mayor incertidumbre en la estimación de su efecto sobre el precio de la vivienda.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=2441eb59">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [37]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">ic_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[37]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>IC_width_OLS</th>
+<th>IC_width_HC3</th>
+<th>IC_width_Bootstrap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>const</th>
+<td>0.993914</td>
+<td>1.143080</td>
+<td>1.105736</td>
+</tr>
+<tr>
+<th>Overall Qual</th>
+<td>0.013073</td>
+<td>0.017545</td>
+<td>0.018000</td>
+</tr>
+<tr>
+<th>Gr Liv Area</th>
+<td>0.000039</td>
+<td>0.000041</td>
+<td>0.000041</td>
+</tr>
+<tr>
+<th>Garage Cars</th>
+<td>0.020787</td>
+<td>0.026959</td>
+<td>0.027056</td>
+</tr>
+<tr>
+<th>Total Bsmt SF</th>
+<td>0.000049</td>
+<td>0.000058</td>
+<td>0.000057</td>
+</tr>
+<tr>
+<th>1st Flr SF</th>
+<td>0.000057</td>
+<td>0.000062</td>
+<td>0.000064</td>
+</tr>
+<tr>
+<th>Full Bath</th>
+<td>0.030023</td>
+<td>0.033094</td>
+<td>0.032491</td>
+</tr>
+<tr>
+<th>Year Built</th>
+<td>0.000524</td>
+<td>0.000595</td>
+<td>0.000581</td>
+</tr>
+<tr>
+<th>Fireplaces</th>
+<td>0.020682</td>
+<td>0.022258</td>
+<td>0.022461</td>
+</tr>
+<tr>
+<th>Lot Area</th>
+<td>0.000003</td>
+<td>0.000004</td>
+<td>0.000004</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a32bb529">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Tabla 7.4.3.</strong> Amplitud intervalos de confianza OLS vs. HC3 vs. Bootstrap.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2a34de96">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Alineados con los errores estándar (<a href="#tabla-742-se-ols-hc3-boot">Tabla 7.4.2</a>), los intervalos calculados con OLS son consistentemente más estrechos que los obtenidos con HC3 o bootstrap, llegando a la misma conclusión de que el OLS inicial es menos robusto.</p>
 </div>
 </div>
 </div>
