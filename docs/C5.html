@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>C2</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>C5</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7517,34 +7517,215 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Cap%C3%ADtulo-2:-Descripci%C3%B3n-y-limpieza-del-dataset">Capítulo 2: Descripción y limpieza del dataset<a class="anchor-link" href="#Cap%C3%ADtulo-2:-Descripci%C3%B3n-y-limpieza-del-dataset">¶</a></h1>
+<h1 id="Cap%C3%ADtulo-5:-Inferencia-y-grados-de-libertad">Capítulo 5: Inferencia y grados de libertad<a class="anchor-link" href="#Cap%C3%ADtulo-5:-Inferencia-y-grados-de-libertad">¶</a></h1>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dc947850">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=772bdb95">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="2.1-Carga-del-dataset">2.1 Carga del dataset<a class="anchor-link" href="#2.1-Carga-del-dataset">¶</a></h3>
+<h3 id="5.1-Grados-de-libertad">5.1 Grados de libertad<a class="anchor-link" href="#5.1-Grados-de-libertad">¶</a></h3>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=bf2c2211">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=99a722b8">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>En regresión lineal, sea:</p>
+<ul>
+<li>$n$ = número de observaciones</li>
+<li>$k$ = número de variables predictoras (sin contar el intercepto)</li>
+</ul>
+<p>Se definen:</p>
+<p>$$
+\text{Df}_{\text{model}} = k
+$$
+<strong>Ecuación 4.1.2.</strong> Grados de libertad del modelo.</p>
+<p>$$
+\text{Df}_{\text{model}} = 9
+$$</p>
+<p>Representa la cantidad de información utilizada para estimar los $k$ coeficientes.</p>
+<p>$$
+\text{Df}_{\text{residual}} = n - k - 1
+$$
+<strong>Ecuación 4.1.2.</strong> Grados de libertad de los residuos.</p>
+<p>$$
+\text{Df}_{\text{residual}} = 2768 - 9 - 1
+$$</p>
+<p>$$
+\text{Df}_{\text{residual}} = 2758
+$$</p>
+<p>Representa los grados de libertad restantes después de ajustar el modelo.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2a59e549">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="5.2-Errores-est%C3%A1ndar">5.2 Errores estándar<a class="anchor-link" href="#5.2-Errores-est%C3%A1ndar">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=86b45e6a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>En un modelo de regresión lineal, los <strong>errores estándar de los coeficientes</strong> miden la incertidumbre asociada a cada estimador $\hat{\beta}_j$.<br/>
+En otras palabras, nos indican cuánto esperaríamos que varíen los coeficientes si repitiéramos el experimento con nuevas muestras del mismo tamaño. Coeficientes con errores estándar grandes son menos precisos y más sensibles al muestreo.</p>
+<p>La suma de cuadrados de los residuos se define como:</p>
+<p>$$
+SS_{\text{Res}} = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+$$</p>
+<p><strong>Ecuación 5.1.1.</strong> Suma de cuadrados de los residuos.</p>
+<p>Esta cantidad representa la <strong>variabilidad de <code>y</code> no explicada por el modelo</strong>.</p>
+<p>La varianza de los errores se estima dividiendo $SS_{\text{Res}}$ por los grados de libertad de los residuos ($\text{Df}_{\text{residual}}$):</p>
+<p>$$
+\hat{\sigma}^2 = \frac{SS_{\text{Res}}}{\text{Df}_{\text{residual}}}
+$$</p>
+<p><strong>Ecuación 5.1.2.</strong> Estimación de la varianza de los errores.</p>
+<p>La matriz de varianzas-covarianzas de los coeficientes se calcula como:</p>
+<p>$$
+\text{Var}(\hat{\beta}) = \hat{\sigma}^2 (X^\top X)^{-1}
+$$</p>
+<p><strong>Ecuación 5.1.3.</strong> Matriz de varianzas-covarianzas de los coeficientes.</p>
+<p>Finalmente, el <strong>error estándar</strong> de cada coeficiente $\hat{\beta}_j$ se obtiene tomando la raíz cuadrada de la diagonal correspondiente:</p>
+<p>$$
+SE(\hat{\beta}_j) = \sqrt{[\text{Var}(\hat{\beta})]_{jj}}
+$$</p>
+<p><strong>Ecuación 5.1.4.</strong> Error estándar de los coeficientes.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=f31115b2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/AmesHousing.csv"</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/AmesHousing_sin_outliers.csv"</span><span class="p">)</span>
+<span class="n">vars_modelo</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'Overall Qual'</span><span class="p">,</span> <span class="s1">'Gr Liv Area'</span><span class="p">,</span> <span class="s1">'Garage Cars'</span><span class="p">,</span>
+    <span class="s1">'Total Bsmt SF'</span><span class="p">,</span> <span class="s1">'1st Flr SF'</span><span class="p">,</span> <span class="s1">'Full Bath'</span><span class="p">,</span>
+    <span class="s1">'Year Built'</span><span class="p">,</span> <span class="s1">'Fireplaces'</span><span class="p">,</span> <span class="s1">'Lot Area'</span>
+<span class="p">]</span>
+
+<span class="n">X_sm</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">vars_modelo</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"SalePrice_log"</span><span class="p">]</span>
+<span class="n">modelo</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X_sm</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">tabla_inferencia</span> <span class="o">=</span> <span class="n">modelo</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">tabla_inferencia</span> <span class="o">=</span> <span class="n">tabla_inferencia</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">'Coef.'</span><span class="p">:</span> <span class="s1">'coef'</span><span class="p">,</span>
+    <span class="s1">'Std.Err.'</span><span class="p">:</span> <span class="s1">'std err'</span><span class="p">,</span>
+    <span class="s1">'P&gt;|t|'</span><span class="p">:</span> <span class="s1">'p-value'</span>
+<span class="p">})</span>
+
+<span class="n">mean_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"SalePrice_log"</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">tabla_inferencia</span><span class="p">[</span><span class="s2">"coef"</span><span class="p">]</span> <span class="o">=</span> <span class="n">tabla_inferencia</span><span class="p">[</span><span class="s2">"coef"</span><span class="p">]</span> <span class="o">*</span> <span class="n">mean_price</span>
+
+<span class="n">tabla_inferencia</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=21b7e444">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="5.3-Valores-P">5.3 Valores P<a class="anchor-link" href="#5.3-Valores-P">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3e4f5952">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Consecuentemente, los <strong>valores p</strong> permiten evaluar la significancia estadística de cada coeficiente $\hat{\beta}_j$.<br/>
+En otras palabras, nos indican la probabilidad de obtener un coeficiente tan extremo como el observado si, en realidad, el coeficiente fuera cero (hipótesis nula $H_0: \beta_j = 0$).</p>
+<p>Para calcular el valor p, primero se construye el <strong>estadístico t</strong> de cada coeficiente:</p>
+<p>$$
+t_j = \frac{\hat{\beta}_j}{SE(\hat{\beta}_j)}
+$$</p>
+<p><strong>Ecuación 5.3.1.</strong> Estadístico t de los coeficientes.</p>
+<p>Bajo la hipótesis nula $H_0: \beta_j = 0$, este estadístico sigue una distribución t con $\text{Df}_{\text{residual}} = n - k - 1$ grados de libertad.</p>
+<p>Luego, el valor p se obtiene como:</p>
+<p>$$
+p_j = 2 \cdot P(T &gt; |t_j|)
+$$</p>
+<p><strong>Ecuación 5.3.2.</strong> Valor p bilateral, donde $T \sim t_{\text{Df}_{\text{residual}}}$.</p>
+<p>Un valor p pequeño (típicamente menor a 0.05) indica que hay evidencia suficiente para rechazar la hipótesis nula, es decir, que el coeficiente es significativamente distinto de cero, con lo cual se podría afirmar que existe una relación lineal.</p>
+<p>Un valor p grande sugiere que no hay evidencia suficiente para afirmar que el coeficiente difiere de cero, sugiriendo así la inexistencia de una relación lineal entre la variable predictora y la de respuesta.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=bbf33ae1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">'display.float_format'</span><span class="p">,</span> <span class="s1">'</span><span class="si">{:.2f}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"../data/AmesHousing_sin_outliers.csv"</span><span class="p">)</span>
+<span class="n">vars_modelo</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'Overall Qual'</span><span class="p">,</span> <span class="s1">'Gr Liv Area'</span><span class="p">,</span> <span class="s1">'Garage Cars'</span><span class="p">,</span>
+    <span class="s1">'Total Bsmt SF'</span><span class="p">,</span> <span class="s1">'1st Flr SF'</span><span class="p">,</span> <span class="s1">'Full Bath'</span><span class="p">,</span>
+    <span class="s1">'Year Built'</span><span class="p">,</span> <span class="s1">'Fireplaces'</span><span class="p">,</span> <span class="s1">'Lot Area'</span>
+<span class="p">]</span>
+
+<span class="n">X_sm</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">vars_modelo</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"SalePrice_log"</span><span class="p">]</span>
+<span class="n">modelo</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X_sm</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">tabla_inferencia</span> <span class="o">=</span> <span class="n">modelo</span><span class="o">.</span><span class="n">summary2</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">tabla_inferencia</span> <span class="o">=</span> <span class="n">tabla_inferencia</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">'Coef.'</span><span class="p">:</span> <span class="s1">'coef'</span><span class="p">,</span>
+    <span class="s1">'Std.Err.'</span><span class="p">:</span> <span class="s1">'std err'</span><span class="p">,</span>
+    <span class="s1">'P&gt;|t|'</span><span class="p">:</span> <span class="s1">'p-value'</span>
+<span class="p">})</span>
+
+<span class="n">mean_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"SalePrice_log"</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">tabla_inferencia</span><span class="p">[</span><span class="s2">"coef"</span><span class="p">]</span> <span class="o">=</span> <span class="n">tabla_inferencia</span><span class="p">[</span><span class="s2">"coef"</span><span class="p">]</span> <span class="o">*</span> <span class="n">mean_price</span>
+
+<span class="n">tabla_inferencia</span>
 </pre></div>
 </div>
 </div>
@@ -7554,9 +7735,9 @@ a.anchor-link {
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -7575,385 +7756,104 @@ a.anchor-link {
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>Order</th>
-<th>PID</th>
-<th>MS SubClass</th>
-<th>MS Zoning</th>
-<th>Lot Frontage</th>
+<th>coef</th>
+<th>std err</th>
+<th>t</th>
+<th>p-value</th>
+<th>[0.025</th>
+<th>0.975]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>const</th>
+<td>912601.01</td>
+<td>0.25</td>
+<td>20.70</td>
+<td>0.00</td>
+<td>4.75</td>
+<td>5.74</td>
+</tr>
+<tr>
+<th>Overall Qual</th>
+<td>17686.26</td>
+<td>0.00</td>
+<td>30.50</td>
+<td>0.00</td>
+<td>0.10</td>
+<td>0.11</td>
+</tr>
+<tr>
+<th>Gr Liv Area</th>
+<td>41.72</td>
+<td>0.00</td>
+<td>23.97</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr>
+<th>Garage Cars</th>
+<td>8531.03</td>
+<td>0.01</td>
+<td>9.25</td>
+<td>0.00</td>
+<td>0.04</td>
+<td>0.06</td>
+</tr>
+<tr>
+<th>Total Bsmt SF</th>
+<td>26.75</td>
+<td>0.00</td>
+<td>12.30</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr>
+<th>1st Flr SF</th>
+<td>0.44</td>
+<td>0.00</td>
+<td>0.18</td>
+<td>0.86</td>
+<td>-0.00</td>
+<td>0.00</td>
+</tr>
+<tr>
+<th>Full Bath</th>
+<td>-2348.34</td>
+<td>0.01</td>
+<td>-1.76</td>
+<td>0.08</td>
+<td>-0.03</td>
+<td>0.00</td>
+</tr>
+<tr>
+<th>Year Built</th>
+<td>480.51</td>
+<td>0.00</td>
+<td>20.69</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr>
+<th>Fireplaces</th>
+<td>8028.88</td>
+<td>0.01</td>
+<td>8.75</td>
+<td>0.00</td>
+<td>0.04</td>
+<td>0.06</td>
+</tr>
+<tr>
 <th>Lot Area</th>
-<th>Street</th>
-<th>Alley</th>
-<th>Lot Shape</th>
-<th>Land Contour</th>
-<th>...</th>
-<th>Pool Area</th>
-<th>Pool QC</th>
-<th>Fence</th>
-<th>Misc Feature</th>
-<th>Misc Val</th>
-<th>Mo Sold</th>
-<th>Yr Sold</th>
-<th>Sale Type</th>
-<th>Sale Condition</th>
-<th>SalePrice</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>1</td>
-<td>526301100</td>
-<td>20</td>
-<td>RL</td>
-<td>141.0</td>
-<td>31770</td>
-<td>Pave</td>
-<td>NaN</td>
-<td>IR1</td>
-<td>Lvl</td>
-<td>...</td>
-<td>0</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>0</td>
-<td>5</td>
-<td>2010</td>
-<td>WD</td>
-<td>Normal</td>
-<td>215000</td>
-</tr>
-<tr>
-<th>1</th>
-<td>2</td>
-<td>526350040</td>
-<td>20</td>
-<td>RH</td>
-<td>80.0</td>
-<td>11622</td>
-<td>Pave</td>
-<td>NaN</td>
-<td>Reg</td>
-<td>Lvl</td>
-<td>...</td>
-<td>0</td>
-<td>NaN</td>
-<td>MnPrv</td>
-<td>NaN</td>
-<td>0</td>
-<td>6</td>
-<td>2010</td>
-<td>WD</td>
-<td>Normal</td>
-<td>105000</td>
-</tr>
-<tr>
-<th>2</th>
-<td>3</td>
-<td>526351010</td>
-<td>20</td>
-<td>RL</td>
-<td>81.0</td>
-<td>14267</td>
-<td>Pave</td>
-<td>NaN</td>
-<td>IR1</td>
-<td>Lvl</td>
-<td>...</td>
-<td>0</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Gar2</td>
-<td>12500</td>
-<td>6</td>
-<td>2010</td>
-<td>WD</td>
-<td>Normal</td>
-<td>172000</td>
-</tr>
-<tr>
-<th>3</th>
-<td>4</td>
-<td>526353030</td>
-<td>20</td>
-<td>RL</td>
-<td>93.0</td>
-<td>11160</td>
-<td>Pave</td>
-<td>NaN</td>
-<td>Reg</td>
-<td>Lvl</td>
-<td>...</td>
-<td>0</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>0</td>
-<td>4</td>
-<td>2010</td>
-<td>WD</td>
-<td>Normal</td>
-<td>244000</td>
-</tr>
-<tr>
-<th>4</th>
-<td>5</td>
-<td>527105010</td>
-<td>60</td>
-<td>RL</td>
-<td>74.0</td>
-<td>13830</td>
-<td>Pave</td>
-<td>NaN</td>
-<td>IR1</td>
-<td>Lvl</td>
-<td>...</td>
-<td>0</td>
-<td>NaN</td>
-<td>MnPrv</td>
-<td>NaN</td>
-<td>0</td>
-<td>3</td>
-<td>2010</td>
-<td>WD</td>
-<td>Normal</td>
-<td>189900</td>
-</tr>
-</tbody>
-</table>
-<p>5 rows × 82 columns</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0c1bb87a">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Tabla 2.1.1.</strong> Conjunto de datos <em>Ames Housing</em>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fd0b3c13">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Esta tabla muestra las primeras observaciones del dataset original, permitiendo verificar la correcta carga de los datos y la estructura general de las variables.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=cfafd3de">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">fuente</span> <span class="o">=</span> <span class="s2">"Ames Housing Dataset (De Cock, 2011) — Iowa State University"</span>
-<span class="n">tamano</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">n_variables</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">licencia</span> <span class="o">=</span> <span class="s2">"Open Data, libre uso académico"</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fuente: </span><span class="si">{</span><span class="n">fuente</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tamaño: </span><span class="si">{</span><span class="n">tamano</span><span class="si">}</span><span class="s2"> registros"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Número de variables: </span><span class="si">{</span><span class="n">n_variables</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Licencia: </span><span class="si">{</span><span class="n">licencia</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Fuente: Ames Housing Dataset (De Cock, 2011) — Iowa State University
-Tamaño: 2930 registros
-Número de variables: 82
-Licencia: Open Data, libre uso académico
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5a224a87">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Tabla 2.1.2.</strong> Metadatos <em>Ames Housing</em>.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=58f1c318">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">faltantes</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="n">tipos</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dtypes</span>
-
-<span class="n">tabla_faltantes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">"Tipo de variable"</span><span class="p">:</span> <span class="n">tipos</span><span class="p">,</span>
-    <span class="s2">"</span><span class="si">% F</span><span class="s2">altantes"</span><span class="p">:</span> <span class="n">faltantes</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="p">})</span>
-
-<span class="n">tabla_faltantes</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">tabla_faltantes</span><span class="p">[</span><span class="n">tabla_faltantes</span><span class="p">[</span><span class="s2">"</span><span class="si">% F</span><span class="s2">altantes"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">"</span><span class="si">% F</span><span class="s2">altantes"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="n">tabla_faltantes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[23]:</div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>Tipo de variable</th>
-<th>% Faltantes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>Pool QC</th>
-<td>object</td>
-<td>99.56</td>
-</tr>
-<tr>
-<th>Misc Feature</th>
-<td>object</td>
-<td>96.38</td>
-</tr>
-<tr>
-<th>Alley</th>
-<td>object</td>
-<td>93.24</td>
-</tr>
-<tr>
-<th>Fence</th>
-<td>object</td>
-<td>80.48</td>
-</tr>
-<tr>
-<th>Mas Vnr Type</th>
-<td>object</td>
-<td>60.58</td>
-</tr>
-<tr>
-<th>Fireplace Qu</th>
-<td>object</td>
-<td>48.53</td>
-</tr>
-<tr>
-<th>Lot Frontage</th>
-<td>float64</td>
-<td>16.72</td>
-</tr>
-<tr>
-<th>Garage Qual</th>
-<td>object</td>
-<td>5.43</td>
-</tr>
-<tr>
-<th>Garage Cond</th>
-<td>object</td>
-<td>5.43</td>
-</tr>
-<tr>
-<th>Garage Yr Blt</th>
-<td>float64</td>
-<td>5.43</td>
-</tr>
-<tr>
-<th>Garage Finish</th>
-<td>object</td>
-<td>5.43</td>
-</tr>
-<tr>
-<th>Garage Type</th>
-<td>object</td>
-<td>5.36</td>
-</tr>
-<tr>
-<th>Bsmt Exposure</th>
-<td>object</td>
-<td>2.83</td>
-</tr>
-<tr>
-<th>BsmtFin Type 2</th>
-<td>object</td>
-<td>2.76</td>
-</tr>
-<tr>
-<th>Bsmt Cond</th>
-<td>object</td>
-<td>2.73</td>
-</tr>
-<tr>
-<th>Bsmt Qual</th>
-<td>object</td>
-<td>2.73</td>
-</tr>
-<tr>
-<th>BsmtFin Type 1</th>
-<td>object</td>
-<td>2.73</td>
-</tr>
-<tr>
-<th>Mas Vnr Area</th>
-<td>float64</td>
-<td>0.78</td>
-</tr>
-<tr>
-<th>Bsmt Full Bath</th>
-<td>float64</td>
-<td>0.07</td>
-</tr>
-<tr>
-<th>Bsmt Half Bath</th>
-<td>float64</td>
-<td>0.07</td>
+<td>1.71</td>
+<td>0.00</td>
+<td>11.83</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
 </tr>
 </tbody>
 </table>
@@ -7963,469 +7863,25 @@ Licencia: Open Data, libre uso académico
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=47869305">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e615d661">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Tabla 2.1.3.</strong> Valores faltantes por variable.</p>
+<p><strong>Tabla 5.3.1.</strong> Inferencia estadística del modelo 1.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=57142088">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c8db3f42">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>El tratamiento de valores faltantes se realizó de forma diferenciada según el tipo de variable.<br/>
-Para las <strong>variables numéricas</strong>, se imputó la <strong>mediana</strong>, una medida robusta frente a valores extremos.<br/>
-En las <strong>variables categóricas</strong>, se reemplazaron los valores ausentes por la <strong>moda</strong>, preservando la categoría más frecuente.</p>
-<p>La regla aplicada se resume en la siguiente expresión:</p>
-<p>$$
-x_{ij}^{*} =
-\begin{cases}
-\text{Mediana}(X_j) &amp; \text{si } X_j \text{ es numérica}\\[4pt]
-\text{Moda}(X_j) &amp; \text{si } X_j \text{ es categórica}
-\end{cases}
-$$</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=076c1ae2">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Ecuación 2.1.1.</strong> Regla imputación faltantes.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=e2652c68">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
-
-<span class="n">data_limpia</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-<span class="n">num_cols</span> <span class="o">=</span> <span class="n">data_limpia</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
-<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">num_cols</span><span class="p">:</span>
-    <span class="n">data_limpia</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data_limpia</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">cat_cols</span> <span class="o">=</span> <span class="n">data_limpia</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
-<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cat_cols</span><span class="p">:</span>
-    <span class="n">data_limpia</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data_limpia</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d5852c18">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="2.2-Tratamiento-de-outliers">2.2 Tratamiento de outliers<a class="anchor-link" href="#2.2-Tratamiento-de-outliers">¶</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a32bf029">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Se aplicó el criterio de <strong>tres desviaciones estándar (3Z)</strong> para identificar observaciones atípicas en las variables numéricas de interés, incluyendo la variable objetivo <code>SalePrice</code> y 13 predictoras potenciales.</p>
-<p>Bajo este método, un dato se considera <em>outlier</em> si su distancia a la media supera tres desviaciones estándar:</p>
-<p>$$
-|z_i| = \left| \frac{x_i - \bar{x}}{s} \right| &gt; 3
-$$</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d9dfd3eb">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Ecuación 2.2.2.</strong> Outlier 3Z.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=711ac987">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="n">vars_outliers</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Overall Qual"</span><span class="p">,</span> <span class="s2">"Gr Liv Area"</span><span class="p">,</span><span class="s2">"Garage Area"</span><span class="p">,</span> <span class="s2">"Garage Cars"</span><span class="p">,</span><span class="s2">"Bedroom AbvGr"</span><span class="p">,</span>
-    <span class="s2">"Total Bsmt SF"</span><span class="p">,</span> <span class="s2">"Year Remod/Add"</span><span class="p">,</span><span class="s2">"TotRms AbvGrd"</span><span class="p">,</span><span class="s2">"1st Flr SF"</span><span class="p">,</span> <span class="s2">"Full Bath"</span><span class="p">,</span>
-    <span class="s2">"Year Built"</span><span class="p">,</span> <span class="s2">"Fireplaces"</span><span class="p">,</span> <span class="s2">"Lot Area"</span><span class="p">,</span><span class="s2">"SalePrice"</span>
-<span class="p">]</span>
-
-<span class="n">data_sin_outliers</span> <span class="o">=</span> <span class="n">data_limpia</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">detectar_outliers_3z</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
-    <span class="n">mean</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">std</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">col</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="o">*</span><span class="n">std</span>
-
-<span class="n">outliers_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_sin_outliers</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">vars_outliers</span><span class="p">:</span>
-    <span class="n">outliers_mask</span> <span class="o">|=</span> <span class="n">detectar_outliers_3z</span><span class="p">(</span><span class="n">data_sin_outliers</span><span class="p">[</span><span class="n">var</span><span class="p">])</span>
-
-<span class="n">antes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_sin_outliers</span><span class="p">)</span>
-<span class="n">n_outliers</span> <span class="o">=</span> <span class="n">outliers_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-
-<span class="n">data_sin_outliers</span> <span class="o">=</span> <span class="n">data_sin_outliers</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">outliers_mask</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">despues</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_sin_outliers</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Registros antes: </span><span class="si">{</span><span class="n">antes</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Outliers detectados (3Z): </span><span class="si">{</span><span class="n">n_outliers</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Registros después de eliminar outliers: </span><span class="si">{</span><span class="n">despues</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Registros antes: 2930
-Outliers detectados (3Z): 162
-Registros después de eliminar outliers: 2768
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=719487f3">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Tabla 2.2.1.</strong> Resumen tratamiento de outliers.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6a74001a">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>En total, se detectaron <strong>162 observaciones atípicas</strong>, las cuales fueron eliminadas del conjunto de datos con el objetivo de reducir la influencia de valores extremos sobre el ajuste del modelo a aplicar.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a3433ec4">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Además, se aplicó una transformación logarítmica natural a la variable <strong>SalePrice</strong> con el fin de mejorar la relación lineal entre esta y las variables predictoras, reduciendo cualquier sesgo presente en la distribución original.</p>
-<p>$$
-Y' = \log(1 + Y)
-$$</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f8efcc3d">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Ecuación 2.2.3.</strong> Transformación logarítmica. <a id="eq-2-2-2"></a></p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a563ca1d">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_sin_outliers</span><span class="p">[</span><span class="s2">"SalePrice_log"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">data_sin_outliers</span><span class="p">[</span><span class="s2">"SalePrice"</span><span class="p">])</span>
-<span class="n">data_sin_outliers</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"../data/AmesHousing_sin_outliers.csv"</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span><span class="s2">","</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=87b5ac2a">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="2.3-Codificaci%C3%B3n-de-variables-categ%C3%B3ricas">2.3 Codificación de variables categóricas<a class="anchor-link" href="#2.3-Codificaci%C3%B3n-de-variables-categ%C3%B3ricas">¶</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=594929a9">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Las variables categóricas se transformaron en valores numéricos para facilitar su uso en modelos.</p>
-<p>Primero se codificaron las <strong>variables ordinales</strong> según su nivel, asignando valores enteros que respetan el orden lógico de las categorías (por ejemplo, <em>Po</em> &lt; <em>Fa</em> &lt; <em>TA</em> &lt; <em>Gd</em> &lt; <em>Ex</em>).</p>
-<p>Posteriormente, las <strong>variables nominales</strong> (sin orden inherente) se codificaron mediante variables <em>dummy</em>, creando una representación binaria para cada categoría (y una nueva columna).</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=830c2740">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_ordinal</span> <span class="o">=</span> <span class="n">data_sin_outliers</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-<span class="n">map_calidad</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Po"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"Fa"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"TA"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Gd"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"Ex"</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
-
-<span class="n">map_poolqc</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Fa"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"TA"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Gd"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Ex"</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
-
-<span class="n">map_bsmt_exposure</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"No"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"Mn"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Av"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Gd"</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
-
-<span class="n">map_functional</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"Sal"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"Sev"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"Maj2"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"Maj1"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="s2">"Mod"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"Min2"</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s2">"Min1"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s2">"Typ"</span><span class="p">:</span> <span class="mi">8</span>
-<span class="p">}</span>
-
-<span class="n">cols_calidad</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Exter Qual"</span><span class="p">,</span> <span class="s2">"Exter Cond"</span><span class="p">,</span> <span class="s2">"Bsmt Qual"</span><span class="p">,</span> <span class="s2">"Bsmt Cond"</span><span class="p">,</span>
-    <span class="s2">"Heating QC"</span><span class="p">,</span> <span class="s2">"Kitchen Qual"</span><span class="p">,</span> <span class="s2">"Fireplace Qu"</span><span class="p">,</span>
-    <span class="s2">"Garage Qual"</span><span class="p">,</span> <span class="s2">"Garage Cond"</span>
-<span class="p">]</span>
-<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols_calidad</span><span class="p">:</span>
-    <span class="n">data_ordinal</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_ordinal</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">map_calidad</span><span class="p">)</span>
-
-<span class="n">data_ordinal</span><span class="p">[</span><span class="s2">"Pool QC"</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_ordinal</span><span class="p">[</span><span class="s2">"Pool QC"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">map_poolqc</span><span class="p">)</span>
-<span class="n">data_ordinal</span><span class="p">[</span><span class="s2">"Bsmt Exposure"</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_ordinal</span><span class="p">[</span><span class="s2">"Bsmt Exposure"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">map_bsmt_exposure</span><span class="p">)</span>
-<span class="n">data_ordinal</span><span class="p">[</span><span class="s2">"Functional"</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_ordinal</span><span class="p">[</span><span class="s2">"Functional"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">map_functional</span><span class="p">)</span>
-
-<span class="n">data_codificada</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">data_ordinal</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">data_codificada</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"../data/AmesHousing_codificada.csv"</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span><span class="s2">","</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<span class="n">n_ordinales</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_calidad</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span>  <span class="c1"># las de cols_calidad + Pool QC, Bsmt Exposure, Functional</span>
-
-<span class="n">n_nominales</span> <span class="o">=</span> <span class="n">data_codificada</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">data_ordinal</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="n">tabla_transformaciones</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">"Tipo de transformación"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Ordinales recodificadas"</span><span class="p">,</span> <span class="s2">"Nominales codificadas (dummies)"</span><span class="p">],</span>
-    <span class="s2">"Cantidad de variables"</span><span class="p">:</span> <span class="p">[</span><span class="n">n_ordinales</span><span class="p">,</span> <span class="n">n_nominales</span><span class="p">]</span>
-<span class="p">})</span>
-
-<span class="n">display</span><span class="p">(</span><span class="n">tabla_transformaciones</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>Tipo de transformación</th>
-<th>Cantidad de variables</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>Ordinales recodificadas</td>
-<td>12</td>
-</tr>
-<tr>
-<th>1</th>
-<td>Nominales codificadas (dummies)</td>
-<td>139</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=285a823d">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Tabla 2.3.1.</strong> Resumen variables categóricas codificadas.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7bf5909c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>El resultado muestra que se transformaron <strong>12 variables ordinales</strong> mediante recodificación numérica y <strong>139 variables nominales</strong> a través de codificación <em>dummy</em>.</p>
-<p>Con estas transformaciones, el dataset quedó sin valores faltantes, sin outliers y con todas las variables en formato adecuado para su modelación.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1e269049">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [28]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">resumen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-    <span class="s2">"Etapa"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Original"</span><span class="p">,</span> <span class="s2">"Después de limpieza"</span><span class="p">],</span>
-    <span class="s2">"Registros"</span><span class="p">:</span> <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data_codificada</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
-    <span class="s2">"Columnas"</span><span class="p">:</span> <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data_codificada</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
-    <span class="s2">"Faltantes totales"</span><span class="p">:</span> <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">data_codificada</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()]</span>
-<span class="p">})</span>
-
-<span class="n">resumen</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[28]:</div>
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>Etapa</th>
-<th>Registros</th>
-<th>Columnas</th>
-<th>Faltantes totales</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>Original</td>
-<td>2930</td>
-<td>82</td>
-<td>15749</td>
-</tr>
-<tr>
-<th>1</th>
-<td>Después de limpieza</td>
-<td>2768</td>
-<td>222</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6317d176">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Tabla 2.3.2.</strong> Resumen genera limpieza de datos.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=611f5816">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>El conjunto original contenía <strong>2930 registros y 82 variables</strong>, con un total de <strong>15 749 valores faltantes</strong>.<br/>
-Tras el proceso de imputación, eliminación de outliers, transformación logarítmica y codificación de variables, el dataset final quedó compuesto por <strong>2768 observaciones y 222 variables</strong>, sin valores ausentes.</p>
+<p>Coeficientes con <strong>errores estándar</strong> muy pequeños, como los de <code>Overall Qual</code>, <code>Gr Liv Area</code> o <code>Year Built</code>, indican que estas estimaciones son bastante precisas. Por el contrario, un coeficiente con error estándar relativamente más grande, como <code>Full Bath</code> o <code>Garage Cars</code>, refleja mayor incertidumbre en la estimación de su efecto sobre el precio de la vivienda.</p>
+<p><strong>Valores p</strong> menores que 0.05 se consideran significativos, indicando que los coeficientes son distintos de 0. En este modelo, la mayoría de las variables cumplen este criterio, de forma que contribuyen significativamente a explicar <code>SalePrice</code>. Por el contrario, <code>1st Flr SF</code> y <code>Full Bath</code> tienen valores p mayores a 0.05, sugiriendo que su efecto podría no ser relevante al controlar por los demás predictores.</p>
 </div>
 </div>
 </div>
