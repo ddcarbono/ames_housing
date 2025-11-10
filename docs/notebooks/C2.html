@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Capítulo 2: Descripción y limpieza del dataset &#8212; Ames Housing Notebooks</title>
+    <title>Capítulo 2: Descripción y limpieza del dataset &#8212; Ames Housing: Regresión lineal, inferencia, diagnóstico y métodos robustos</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -57,13 +57,13 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "all"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/C2';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Capítulo 3: Análisis exploratorio (EDA)" href="C3.html" />
-    <link rel="prev" title="Ames Housing — Notebooks" href="../index.html" />
+    <link rel="prev" title="Ames Housing — Modelos Lineales" href="../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -151,7 +151,7 @@
   
   
   
-    <p class="title logo__title">Ames Housing Notebooks</p>
+    <p class="title logo__title">Ames Housing: Regresión lineal, inferencia, diagnóstico y métodos robustos</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -167,14 +167,6 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="../index.html">
-                    Ames Housing — Notebooks
-                </a>
-            </li>
-        </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Capítulo 2: Descripción y limpieza del dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="C3.html">Capítulo 3: Análisis exploratorio (EDA)</a></li>
@@ -742,7 +734,7 @@ x_{ij}^{*} =
 \[
 |z_i| = \left| \frac{x_i - \bar{x}}{s} \right| &gt; 3
 \]</div>
-<p><strong>Ecuación 2.2.2.</strong> Outlier 3Z.</p>
+<p><strong>Ecuación 2.2.1.</strong> Outlier 3Z.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -792,7 +784,8 @@ Registros después de eliminar outliers: 2768
 \[
 Y' = \log(1 + Y)
 \]</div>
-<p><strong>Ecuación 2.2.3.</strong> Transformación logarítmica. <a id="ecuacion-223-transformacion-log"></a></p>
+<p><strong>Ecuación 2.2.2.</strong> Transformación logarítmica.
+{#ecuacion-222-transformacion-log}</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_sin_outliers</span><span class="p">[</span><span class="s2">&quot;SalePrice_log&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">data_sin_outliers</span><span class="p">[</span><span class="s2">&quot;SalePrice&quot;</span><span class="p">])</span>
@@ -950,7 +943,7 @@ Y' = \log(1 + Y)
 </div></div></div>
 </div>
 <p><strong>Tabla 2.3.2.</strong> Resumen genera limpieza de datos.</p>
-<p>El conjunto original contenía <strong>2930 registros y 82 variables</strong>, con un total de <strong>15 749 valores faltantes</strong>.<br />
+<p>El conjunto original contenía <strong>2930 registros y 82 variables</strong>, con un total de <strong>15749 valores faltantes</strong>.<br />
 Tras el proceso de imputación, eliminación de outliers, transformación logarítmica y codificación de variables, el dataset final quedó compuesto por <strong>2768 observaciones y 222 variables</strong>, sin valores ausentes.</p>
 </section>
 </section>
@@ -991,7 +984,7 @@ Tras el proceso de imputación, eliminación de outliers, transformación logar�
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Ames Housing — Notebooks</p>
+        <p class="prev-next-title">Ames Housing — Modelos Lineales</p>
       </div>
     </a>
     <a class="right-next"
@@ -1036,7 +1029,7 @@ Tras el proceso de imputación, eliminación de outliers, transformación logar�
   <div class="footer-item">
     
 <p class="component-author">
-By Daniel Carbonó, Gloria Bastidas, Luis Pérez
+By Daniel Carbono - Gloria Bastidas - Luis Perez
 </p>
 
   </div>

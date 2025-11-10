@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Capítulo 8: Validación y selección del modelo &#8212; Ames Housing Notebooks</title>
+    <title>Capítulo 8: Validación y selección del modelo &#8212; Ames Housing: Regresión lineal, inferencia, diagnóstico y métodos robustos</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -57,7 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "all"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/C8';</script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -150,7 +150,7 @@
   
   
   
-    <p class="title logo__title">Ames Housing Notebooks</p>
+    <p class="title logo__title">Ames Housing: Regresión lineal, inferencia, diagnóstico y métodos robustos</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -166,14 +166,6 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="../index.html">
-                    Ames Housing — Notebooks
-                </a>
-            </li>
-        </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="C2.html">Capítulo 2: Descripción y limpieza del dataset</a></li>
 <li class="toctree-l1"><a class="reference internal" href="C3.html">Capítulo 3: Análisis exploratorio (EDA)</a></li>
@@ -500,7 +492,7 @@ S_{\text{Ridge}}(\beta) = (Y - X \beta)^\top (Y - X \beta) + \alpha \, \beta^\to
 \]</div>
 <p><strong>Ecuación 8.2.1.</strong> Función de pérdida Ridge.</p>
 <p>Donde <span class="math notranslate nohighlight">\( \alpha \ge 0 \)</span> es el hiperparámetro de regularización.</p>
-<p>Al introducir esta penalización, se <strong>reduce la varianza de los coeficientes</strong>, evitando que tomen valores excesivamente grandes y mejorando la <strong>capacidad de generalización</strong> del modelo. Si <span class="math notranslate nohighlight">\( \alpha = 0 \)</span>, esta solución se reduce a la regresión lineal ordinaria (<a class="reference internal" href="#ecuacion-411-regresion-lineal"><span class="xref myst">Ecuación 4.1.1</span></a>).</p>
+<p>Al introducir esta penalización, se <strong>reduce la varianza de los coeficientes</strong>, evitando que tomen valores excesivamente grandes y mejorando la <strong>capacidad de generalización</strong> del modelo. Si <span class="math notranslate nohighlight">\( \alpha = 0 \)</span>, esta solución se reduce a la regresión lineal ordinaria (<a class="reference internal" href="#C4.html#ecuacion-411-regresion-lineal"><span class="xref myst">Ecuación 4.1.1</span></a>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -1277,7 +1269,7 @@ S_{\text{Ridge}}(\beta) = (Y - X \beta)^\top (Y - X \beta) + \alpha \, \beta^\to
   <div class="footer-item">
     
 <p class="component-author">
-By Daniel Carbonó, Gloria Bastidas, Luis Pérez
+By Daniel Carbono - Gloria Bastidas - Luis Perez
 </p>
 
   </div>

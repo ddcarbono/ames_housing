@@ -341,7 +341,7 @@ document.write(`
 <h1>Capítulo 6: Diagnóstico de supuestos<a class="headerlink" href="#capitulo-6-diagnostico-de-supuestos" title="Link to this heading">#</a></h1>
 <section id="linealidad-y-normalidad">
 <h2>6.1 Linealidad y normalidad<a class="headerlink" href="#linealidad-y-normalidad" title="Link to this heading">#</a></h2>
-<p>El supuesto de <strong>linealidad</strong> indica que la relación entre las variables predictoras y la respuesta es aproximadamente lineal. Representado en la ecuación de regresión lineal (<a class="reference internal" href="#ecuacion-411-regresion-lineal"><span class="xref myst">Ecuación 4.1.1</span></a>), se evalúa con un gráfico de residuales vs valores ajustados; una dispersión aleatoria alrededor de cero sin patrones sugiere que se cumple, desviaciones sugieren una relación no lineal o la necesidad de alguna transformación.</p>
+<p>El supuesto de <strong>linealidad</strong> indica que la relación entre las variables predictoras y la respuesta es aproximadamente lineal. Representado en la ecuación de regresión lineal (:ref:<code class="docutils literal notranslate"><span class="pre">**Ecuación</span> <span class="pre">4.1.1.**</span> <span class="pre">Regresión</span> <span class="pre">lineal</span> <span class="pre">&lt;ecuacion-411-regresion-lineal&gt;</span></code>), se evalúa con un gráfico de residuales vs valores ajustados; una dispersión aleatoria alrededor de cero sin patrones sugiere que se cumple, desviaciones sugieren una relación no lineal o la necesidad de alguna transformación.</p>
 <p>La <strong>normalidad de los residuos</strong> implica que <span class="math notranslate nohighlight">\(\varepsilon \sim N(0, \sigma^2)\)</span>.
 <strong>Ecuación 6.1.1.</strong> Normalidad de los residuos.</p>
 <p>Se verifica con un QQ-plot, comparando los residuos con los cuantiles teóricos de una normal. Si los puntos siguen la línea, el supuesto se cumple; desviaciones pueden afectar la validez de intervalos y pruebas de hipótesis.</p>
@@ -406,7 +406,8 @@ document.write(`
 \[
 \text{Var}(\varepsilon_i) = \sigma^2, \quad \forall i
 \]</div>
-<p><strong>Ecuación 6.2.1.</strong> Varianza de errores.<a id="ecuacion-621-varianza-errores"></a></p>
+<p><strong>Ecuación 6.2.1.</strong> Varianza de los errores.
+{#ecuacion-621-varianza-errores}</p>
 <p>La <strong>autocorrelación</strong> implica que los errores de observaciones consecutivas no deben estar correlacionados. Se interpreta a menudo con la estadística de Durbin–Watson, donde valores cercanos a 2 indican ausencia de autocorrelación. La presencia de autocorrelación puede inflar la significancia aparente de los coeficientes y afectar la precisión de las predicciones. Formalmente:</p>
 <div class="math notranslate nohighlight">
 \[

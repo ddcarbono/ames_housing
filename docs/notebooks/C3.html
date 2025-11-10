@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Capítulo 3: Análisis exploratorio (EDA) &#8212; Ames Housing Notebooks</title>
+    <title>Capítulo 3: Análisis exploratorio (EDA) &#8212; Ames Housing: Regresión lineal, inferencia, diagnóstico y métodos robustos</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -149,7 +149,7 @@
   
   
   
-    <p class="title logo__title">Ames Housing Notebooks</p>
+    <p class="title logo__title">Ames Housing: Regresión lineal, inferencia, diagnóstico y métodos robustos</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -165,14 +165,6 @@
  </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="../index.html">
-                    Ames Housing — Notebooks
-                </a>
-            </li>
-        </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="C2.html">Capítulo 2: Descripción y limpieza del dataset</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Capítulo 3: Análisis exploratorio (EDA)</a></li>
@@ -386,7 +378,7 @@ document.write(`
 <p><strong>Figura 3.1.1.</strong> Histogramas y boxplots de SalePrice y SalePrice_log.</p>
 <p>La tabla muestra la distribución de la variable de respuesta <code class="docutils literal notranslate"><span class="pre">SalePrice</span></code> antes y después de aplicar la transformación logarítmica.</p>
 <p>La distribución original (panel superior) presenta una <strong>asimetría positiva marcada</strong>, con una cola larga hacia la derecha y presencia de varios valores atípicos.</p>
-<p>Tras aplicar la transformación logarítmica (<a class="reference internal" href="#ecuacion-223-transformacion-log"><span class="xref myst">Ecuación 2.2.3</span></a>), la variable <code class="docutils literal notranslate"><span class="pre">SalePrice_log</span></code> adquiere una dispersión más homogénea y reducción significativa de los outliers.</p>
+<p>Tras aplicar la transformación logarítmica (:ref:<code class="docutils literal notranslate"><span class="pre">**Ecuación</span> <span class="pre">2.2.2.**</span> <span class="pre">Transformación</span> <span class="pre">logarítmica</span> <span class="pre">&lt;ecuacion-222-transformacion-log&gt;</span></code>), la variable <code class="docutils literal notranslate"><span class="pre">SalePrice_log</span></code> adquiere una dispersión más homogénea y reducción significativa de los outliers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
@@ -413,7 +405,7 @@ document.write(`
 </div>
 </div>
 <p><strong>Figura 3.1.2.</strong> Diagramas de dispersión Gr Liv Area vs. SalePrice.</p>
-<p>Se compara la relación entre el <strong>precio de venta</strong> (<code class="docutils literal notranslate"><span class="pre">SalePrice</span></code>) y el <strong>área habitable</strong> (<code class="docutils literal notranslate"><span class="pre">Gr</span> <span class="pre">Liv</span> <span class="pre">Area</span></code>) antes y después de la transformación logarítmica (<a class="reference internal" href="#eq-2-2-2"><span class="xref myst">Ecuación 2.2.2</span></a>) aplicada a la variable respuesta.</p>
+<p>Se compara la relación entre el <strong>precio de venta</strong> (<code class="docutils literal notranslate"><span class="pre">SalePrice</span></code>) y el <strong>área habitable</strong> (<code class="docutils literal notranslate"><span class="pre">Gr</span> <span class="pre">Liv</span> <span class="pre">Area</span></code>) antes y después de la transformación logarítmica (:ref:<code class="docutils literal notranslate"><span class="pre">**Ecuación</span> <span class="pre">2.2.2.**</span> <span class="pre">Transformación</span> <span class="pre">logarítmica</span> <span class="pre">&lt;ecuacion-222-transformacion-log&gt;</span></code>) aplicada a la variable respuesta.</p>
 <p>Inicialmente se observa una <strong>dispersión notable en los valores altos</strong>. Tras aplicar la transformación, el patrón muestra una <strong>relación más lineal y estable</strong>, reduciendo la asimetría y atenuando la influencia de valores extremos.</p>
 </section>
 <section id="correlaciones-entre-variables-numericas">
@@ -637,7 +629,7 @@ Name: SalePrice, dtype: float64
   <div class="footer-item">
     
 <p class="component-author">
-By Daniel Carbonó, Gloria Bastidas, Luis Pérez
+By Daniel Carbono - Gloria Bastidas - Luis Perez
 </p>
 
   </div>
