@@ -734,7 +734,7 @@ x_{ij}^{*} =
 \[
 |z_i| = \left| \frac{x_i - \bar{x}}{s} \right| &gt; 3
 \]</div>
-<p><strong>Ecuación 2.2.2.</strong> Outlier 3Z.</p>
+<p><strong>Ecuación 2.2.1.</strong> Outlier 3Z.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -784,7 +784,8 @@ Registros después de eliminar outliers: 2768
 \[
 Y' = \log(1 + Y)
 \]</div>
-<p><strong>Ecuación 2.2.3.</strong> Transformación logarítmica. <a id="ecuacion-223-transformacion-log"></a></p>
+<p><strong>Ecuación 2.2.2.</strong> Transformación logarítmica.
+{#ecuacion-222-transformacion-log}</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_sin_outliers</span><span class="p">[</span><span class="s2">&quot;SalePrice_log&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">data_sin_outliers</span><span class="p">[</span><span class="s2">&quot;SalePrice&quot;</span><span class="p">])</span>
@@ -942,7 +943,7 @@ Y' = \log(1 + Y)
 </div></div></div>
 </div>
 <p><strong>Tabla 2.3.2.</strong> Resumen genera limpieza de datos.</p>
-<p>El conjunto original contenía <strong>2930 registros y 82 variables</strong>, con un total de <strong>15 749 valores faltantes</strong>.<br />
+<p>El conjunto original contenía <strong>2930 registros y 82 variables</strong>, con un total de <strong>15749 valores faltantes</strong>.<br />
 Tras el proceso de imputación, eliminación de outliers, transformación logarítmica y codificación de variables, el dataset final quedó compuesto por <strong>2768 observaciones y 222 variables</strong>, sin valores ausentes.</p>
 </section>
 </section>
