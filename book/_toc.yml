@@ -1,0 +1,11 @@
+format: jb-book
+root: index
+
+chapters:
+  - file: notebooks/C2
+  - file: notebooks/C3
+  - file: notebooks/C4
+  - file: notebooks/C5
+  - file: notebooks/C6
+  - file: notebooks/C7
+  - file: notebooks/C8

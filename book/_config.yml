@@ -1,0 +1,33 @@
+# Configuración de Jupyter Book
+title: "Ames Housing: Regresión lineal, inferencia, diagnóstico y métodos robustos"
+author: "Daniel Carbono - Gloria Bastidas - Luis Perez"
+language: es
+only_build_toc_files: true
+
+repository:
+  url: https://github.com/ddcarbono/ames_housing
+  path_to_book: ./ 
+  branch: main
+
+html:
+  favicon: ""
+  use_issues_button: false
+  use_repository_button: false
+  use_edit_page_button: false
+  home_page_in_navbar: false
+
+parse:
+  myst_enable_extensions:
+    - dollarmath
+    - colon_fence
+    - linkify
+    - substitution
+    - tasklist
+
+sphinx:
+  config:
+    numfig: true
+    mathjax_config:
+      TeX:
+        equationNumbers:
+          autoNumber: "all"
